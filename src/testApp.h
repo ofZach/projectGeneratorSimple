@@ -35,7 +35,6 @@ class testApp : public ofBaseApp{
  
     
         string sketchName;
-        string sketchPath;
         string addons;
         string platform;
     
@@ -74,5 +73,9 @@ class testApp : public ofBaseApp{
     
         
     
+
+        // for command line options
+        bool commandLine;
+        string projectPath;
 
 };

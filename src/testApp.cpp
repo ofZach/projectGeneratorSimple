@@ -105,126 +105,12 @@ string testApp::setupForTarget(int targ){
 
 //--------------------------------------------------------------
 void testApp::setup(){
-    ofSetLogLevel(OF_LOG_VERBOSE);
-    ofSetVerticalSync(true);
-    
-    
-    mode = 0;
-    bInited = false;
-    project = NULL;
-    sketchName = "mySketch";
-    
-    
-    //-------------------------------------
-    // get settings
-    //-------------------------------------
-    
-    XML.loadFile("projectGeneratorSettings.xml");
-    appToRoot = XML.getValue("appToRoot", "../../../../");
-    defaultLoc = XML.getValue("defaultNewProjectLocation", "apps/myApps");
-       //-------------------------------------
-    // calculate the bin path (../../../ on osx) and the sketch path (bin -> root - > defaultLoc)
-    //-------------------------------------
-    
-    // if appToRoot is wrong, we have alot of issues.  all these paths are used in this project: 
-    
-#ifdef TARGET_OSX
-    string binPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofFilePath::getCurrentWorkingDirectory(), "../../../"));
-#else 
-    string binPath = ofFilePath::getCurrentExeDir();
-#endif
-    
-    string ofRoot = ofFilePath::getAbsolutePath(ofFilePath::join(binPath, appToRoot));
-    setOFRoot(ofRoot);
+    //ofSetLogLevel(OF_LOG_VERBOSE);
+	mode = 0;
+	bInited = false;
+	project = NULL;
+	sketchName = "mySketch";
 
-    addonsPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot,"addons"));
-    sketchPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot, defaultLoc));
-    
-    
-    
-    
-    //-------------------------------------
-    // get settings
-    //-------------------------------------
-    
-        
-    //-------------------------------------
-    // load font and setup the buttons
-    font.loadFont("frabk.ttf", 12, false, false);
-    
-    // sketch button
-    button.font = &font;
-    button.prefix = "name: ";
-    button.setText(sketchName);
-    buttons.push_back(button);
-    
-    // path button
-    button.deliminater = "/";
-    button.prefix = "path: ";
-    button.setText(sketchPath);
-    buttons.push_back(button);
-    
-    button.deliminater = ", ";
-    button.prefix = "platforms: ";
-    button.bSelectable = false;
-    button.setText(platform);
-    
-    button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
-    buttons.push_back(button);
-    
-    
-    button.deliminater = ", ";
-    button.prefix = "addons: ";
-    button.bSelectable = true;
-    button.setText(addons);
-    
-    button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
-    buttons.push_back(button);
-    
-    button.deliminater = ",";
-    button.prefix = "generate";
-    button.bSelectable = true;
-    button.setText("");
-    button.topLeftAnchor.set(50,ofGetHeight()-80);
-    buttons.push_back(button);
-    
-    addonButton = button;
-    addonButton.prefix = "< back";
-    addonButton.setText("");
-    
-     for (int i = 0; i < buttons.size(); i++){
-         buttons[i].calculateRect();
-     }
-    
-    addonButton.calculateRect();
-    
-    //-------------------------------------
-    // addons panels: 
-    //-------------------------------------
-    
-    panelCoreAddons.setup();
-    panelOtherAddons.setup();
-    
-    ofDirectory addons(addonsPath);
-
-    addons.listDir();
-    for(int i=0;i<(int)addons.size();i++){
-    	string addon = addons.getName(i);
-    	cout << "adding addon " << addon << endl;
-    	if(addon.find("ofx")==0){
-    		
-            if (isAddonCore(addon)){
-                ofxToggle * toggle = new ofxToggle();
-                panelCoreAddons.add(toggle->setup(addon,false,300));
-            } else {
-                ofxToggle * toggle = new ofxToggle();
-                panelOtherAddons.add(toggle->setup(addon,false,300));
-            }
-            
-            
-    	}
-    }
-    
     //-------------------------------------
     // platform panel (not used, really, but here just in case)
     //-------------------------------------
@@ -236,25 +122,143 @@ void testApp::setup(){
 	panelPlatforms.add(linux64cbToggle.setup("linux64 (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX64));
 	panelPlatforms.add(osxToggle.setup("osx (xcode)",ofGetTargetPlatform()==OF_TARGET_OSX));
 	panelPlatforms.add(iosToggle.setup("ios (xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE));
-    
-    // update the platforms text in the platform button
-    string platforms = "";
-    for (int i = 0; i < panelPlatforms.getNumControls(); i++){
-        if (*((ofxToggle *)panelPlatforms.getControl(i))){
-            if (platforms.length() > 0) platforms+=", ";
-            platforms += ((ofxToggle *)panelPlatforms.getControl(i))->getName();
-            
-        };
-    }
-    buttons[2].setText(platforms);
-    
-    
-    panelPlatforms.setPosition(300,0);
-    panelCoreAddons.setPosition(300,0);
-    panelOtherAddons.setPosition(750,0);
 
+        
+    //-------------------------------------
+    // load font and setup the buttons
+    if(!commandLine){
+		//-------------------------------------
+		// get settings
+		//-------------------------------------
+
+		XML.loadFile("projectGeneratorSettings.xml");
+		appToRoot = XML.getValue("appToRoot", "../../../../");
+		defaultLoc = XML.getValue("defaultNewProjectLocation", "apps/myApps");
+
+		//-------------------------------------
+		// calculate the bin path (../../../ on osx) and the sketch path (bin -> root - > defaultLoc)
+		//-------------------------------------
+
+		// if appToRoot is wrong, we have alot of issues.  all these paths are used in this project:
+
+	#ifdef TARGET_OSX
+		string binPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofFilePath::getCurrentWorkingDirectory(), "../../../"));
+	#else
+		string binPath = ofFilePath::getCurrentExeDir();
+	#endif
+
+		string ofRoot;
+
+		if(ofFilePath::getCurrentExeDir()=="/usr/bin/" || ofFilePath::getCurrentExeDir()=="/usr/local/bin/"){
+			ofRoot = getOFRoot();
+		}else{
+			ofRoot = ofFilePath::getAbsolutePath(ofFilePath::join(binPath, appToRoot));
+			setOFRoot(ofRoot);
+		}
+	    addonsPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot,"addons"));
+	    string sketchPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot, defaultLoc));
+
+    	font.loadFont("frabk.ttf", 12, false, false);
     
-  
+    
+		// sketch button
+		button.font = &font;
+		button.prefix = "name: ";
+		button.setText(sketchName);
+		buttons.push_back(button);
+
+		// path button
+		button.deliminater = "/";
+		button.prefix = "path: ";
+		button.setText(sketchPath);
+		buttons.push_back(button);
+
+		button.deliminater = ", ";
+		button.prefix = "platforms: ";
+		button.bSelectable = false;
+		button.setText(platform);
+
+		button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
+		buttons.push_back(button);
+
+
+		button.deliminater = ", ";
+		button.prefix = "addons: ";
+		button.bSelectable = true;
+		button.setText(addons);
+
+		button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
+		buttons.push_back(button);
+
+		button.deliminater = ",";
+		button.prefix = "generate";
+		button.bSelectable = true;
+		button.setText("");
+		button.topLeftAnchor.set(50,ofGetHeight()-80);
+		buttons.push_back(button);
+
+		addonButton = button;
+		addonButton.prefix = "< back";
+		addonButton.setText("");
+
+		 for (int i = 0; i < buttons.size(); i++){
+			 buttons[i].calculateRect();
+		 }
+
+		addonButton.calculateRect();
+    
+    
+		//-------------------------------------
+		// addons panels:
+		//-------------------------------------
+
+		panelCoreAddons.setup();
+		panelOtherAddons.setup();
+
+		ofDirectory addons(addonsPath);
+
+		addons.listDir();
+		for(int i=0;i<(int)addons.size();i++){
+			string addon = addons.getName(i);
+			cout << "adding addon " << addon << endl;
+			if(addon.find("ofx")==0){
+
+				if (isAddonCore(addon)){
+					ofxToggle * toggle = new ofxToggle();
+					panelCoreAddons.add(toggle->setup(addon,false,300));
+				} else {
+					ofxToggle * toggle = new ofxToggle();
+					panelOtherAddons.add(toggle->setup(addon,false,300));
+				}
+
+
+			}
+		}
+
+		// update the platforms text in the platform button
+		string platforms = "";
+		for (int i = 0; i < panelPlatforms.getNumControls(); i++){
+			if (*((ofxToggle *)panelPlatforms.getControl(i))){
+				if (platforms.length() > 0) platforms+=", ";
+				platforms += ((ofxToggle *)panelPlatforms.getControl(i))->getName();
+
+			};
+		}
+
+		buttons[2].setText(platforms);
+
+
+		panelPlatforms.setPosition(300,0);
+		panelCoreAddons.setPosition(300,0);
+		panelOtherAddons.setPosition(750,0);
+    	ofSetVerticalSync(true);
+    }else{
+		string ofRoot = getOFRoot();
+	    addonsPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot,"addons"));
+    	generateProject();
+    	std::exit(0);
+    }
+
     
 }
 
@@ -374,16 +378,21 @@ void testApp::generateProject(){
         return;
 	}
     
-    if (buttons[0].myText.size() == 0){
-        ofSystemAlertDialog("Error: project must have a name");
-        return;
+    
+    
+    
+    
+    string path;
+    if(!commandLine){
+        printf("start with project generation \n");
+        if (buttons[0].myText.size() == 0){
+            ofSystemAlertDialog("Error: project must have a name");
+            return;
+        }
+    	path = buttons[1].myText + "/" + buttons[0].myText;
+    }else{
+    	path = projectPath;
     }
-    
-    
-    
-    printf("start with project generation \n");
-    
-    string path = buttons[1].myText + "/" + buttons[0].myText;
     
 	for(int i = 0; i < (int)targetsToMake.size(); i++){
 		string target = setupForTarget(targetsToMake[i]);
@@ -417,9 +426,14 @@ void testApp::generateProject(){
         }
 	}
     
-    
-    printf("done with project generation \n");
-    status = "generated: " + buttons[1].myText + "/" + buttons[0].myText;
+
+    cout << "project generated correctly in ";
+    if(!commandLine){
+    	cout << buttons[1].myText + "/" + buttons[0].myText << endl;
+    	status = "generated: " + buttons[1].myText + "/" + buttons[0].myText;
+    }else{
+    	cout << projectPath << endl;
+    }
 
     // go through the control panels, do stuff
 }
