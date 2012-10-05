@@ -523,18 +523,14 @@ void testApp::mousePressed(int x, int y, int button){
                 status = "sketch path set to: " + res;
                 
             }
-#elif defined(TARGET_LINUX)
+#else
             
             ofFileDialogResult results = ofSystemLoadDialog("please select sketch folder",true,buttons[1].myText);
             if(results.bSuccess){
 				buttons[1].setText(results.filePath);
 				status = "sketch path set to: " + results.filePath;
             }
-            
-#elif defined(TARGET_WIN32)
-            
-            // TODO: implement folder preselection for the choose directory dialog. 
-#endif
+ #endif
         
         
         }
