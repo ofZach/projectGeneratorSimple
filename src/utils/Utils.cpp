@@ -493,6 +493,11 @@ bool checkConfigExists(){
 }
 
 bool askOFRoot(){
+	if(!checkConfigExists()){
+		ofSystemAlertDialog("It seems this is the first time you run\n"
+				"the project generator, from the command line\n"
+				"please choose the folder where OF is installed");
+	}
 	ofFileDialogResult res = ofSystemLoadDialog("OF project generator", "choose the folder of your OF install");
 	if (res.fileName == "" || res.filePath == "") return false;
 
