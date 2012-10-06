@@ -10,7 +10,7 @@ OF_ROOT = ../../..
 # for example search paths like:
 # USER_CFLAGS = -I src/objects
 
-USER_CFLAGS = $(addprefix -I, $(shell find src -type d)) 
+USER_CFLAGS = $(addprefix -I, $(shell find ../PGCommon/src -type d)) 
 
 
 # USER_LDFLAGS allows to pass custom flags to the linker
@@ -44,7 +44,7 @@ NDK_PLATFORM = android-8
 # uncomment this for custom package name, must be the same as the java package that contains OFActivity
 #PKGNAME = cc.openframeworks.$(APPNAME)
 
-
+USER_SOURCE_DIR = ../PGCommon/src
 
 
 
