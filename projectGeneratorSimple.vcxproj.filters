@@ -10,9 +10,6 @@
     <ClCompile Include="src\addons\ofAddon.cpp">
       <Filter>src\addons</Filter>
     </ClCompile>
-    <ClCompile Include="src\cocoa\g2AppKit.mm">
-      <Filter>src\cocoa</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
     <Filter Include="src\addons">
       <UniqueIdentifier>{b6c0d928-343f-57fd-eefb-0bb4572ea748}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\cocoa">
-      <UniqueIdentifier>{63b805a9-63a3-ccb0-3c1c-f79b86b758e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\projects">
       <UniqueIdentifier>{fb1e18f7-62a2-a244-e17a-5914b5d8c33e}</UniqueIdentifier>
     </Filter>
@@ -121,9 +115,6 @@
     </ClInclude>
     <ClInclude Include="src\addons\ofAddon.h">
       <Filter>src\addons</Filter>
-    </ClInclude>
-    <ClInclude Include="src\cocoa\g2AppKit.h">
-      <Filter>src\cocoa</Filter>
     </ClInclude>
     <ClInclude Include="src\projects\baseProject.h">
       <Filter>src\projects</Filter>

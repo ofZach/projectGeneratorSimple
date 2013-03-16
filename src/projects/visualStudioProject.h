@@ -11,19 +11,19 @@ class visualStudioProject : public baseProject {
 
 public:
 
-    void setup(string ofRoot= "../../../");
+	void setup(string ofRoot= "../../../");
 
-    void setup();
+	void setup();
 
-    bool createProjectFile();
-    bool loadProjectFile();
-    bool saveProjectFile();
+	bool createProjectFile();
+	bool loadProjectFile();
+	bool saveProjectFile();
 
-    void addSrc(string srcFile, string folder);
-    void addInclude(string includeName);
-    void addLibrary(string libraryName, LibType libType);
+	void addSrc(string srcFile, string folder);
+	void addInclude(string includeName);
+	void addLibrary(string libraryName, LibType libType);
 
-    void addAddon(ofAddon & addon);
+	void addAddon(ofAddon & addon);
 
 	static string LOG_NAME;
 
