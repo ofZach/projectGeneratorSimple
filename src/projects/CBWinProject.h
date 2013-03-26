@@ -16,11 +16,11 @@
 class CBWinProject: virtual public baseProject  {
 public:
 
-    void setup();
+	void setup();
 
-    bool createProjectFile();
-    bool loadProjectFile();
-    bool saveProjectFile();
+	bool createProjectFile();
+	bool loadProjectFile();
+	bool saveProjectFile();
 
 	void addSrc(string srcName, string folder);
 	void addInclude(string includeName);

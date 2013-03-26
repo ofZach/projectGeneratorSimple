@@ -35,17 +35,17 @@ public:
 
 
 
-    double			timeNow, timeThen, fps, lastFrameTime;
-    int				nFramesForFPS;
-    int				nFrameCount;
+	double			timeNow, timeThen, fps, lastFrameTime;
+	int				nFramesForFPS;
+	int				nFrameCount;
 
-    bool			bFrameRateSet;
-    int 			millisForFrame;
-    int 			prevMillis;
-    int 			diffMillis;
+	bool			bFrameRateSet;
+	int 			millisForFrame;
+	int 			prevMillis;
+	int 			diffMillis;
 
-    float 			frameRate;
+	float 			frameRate;
 
-    ofBaseApp *		ofAppPtr;
+	ofBaseApp *		ofAppPtr;
 };
 
