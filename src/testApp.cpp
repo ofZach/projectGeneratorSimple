@@ -200,7 +200,7 @@ void testApp::setup(){
 	//  Platform text
 	//
 	button.deliminater = ", ";
-	button.prefix = "Platforms: ";
+	button.prefix = "Platform: ";
 	button.secondaryText = "";
 	button.bDrawLong = false;
 	button.secondaryText = "";
@@ -279,21 +279,21 @@ void testApp::setup(){
 	//-------------------------------------
 
 	panelPlatforms.setup();
-	panelPlatforms.add(wincbToggle.setup("windows (codeblocks)",ofGetTargetPlatform()==OF_TARGET_WINGCC));
-	panelPlatforms.add(winvsToggle.setup("windows (visualStudio)", ofGetTargetPlatform()==OF_TARGET_WINVS));
-	panelPlatforms.add(linuxcbToggle.setup("linux (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX));
-	panelPlatforms.add(linux64cbToggle.setup("linux64 (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX64));
+	panelPlatforms.add(wincbToggle.setup("Windows (Code::Blocks)",ofGetTargetPlatform()==OF_TARGET_WINGCC));
+	panelPlatforms.add(winvsToggle.setup("Windows (Visual Studio)", ofGetTargetPlatform()==OF_TARGET_WINVS));
+	panelPlatforms.add(linuxcbToggle.setup("Linux (Code::Blocks)",ofGetTargetPlatform()==OF_TARGET_LINUX));
+	panelPlatforms.add(linux64cbToggle.setup("Linux64 (Code::Blocks)",ofGetTargetPlatform()==OF_TARGET_LINUX64));
 
 //for ios, we need to fake that the target is ios (since we're compiling w/ osx OF)
 
 //#define MAKE_IOS
 	
 #ifdef MAKE_IOS
-	panelPlatforms.add(osxToggle.setup("osx (xcode)",false));
-	panelPlatforms.add(iosToggle.setup("ios (xcode)",true));
+	panelPlatforms.add(osxToggle.setup("OSX (Xcode)",false));
+	panelPlatforms.add(iosToggle.setup("iOS (Xcode)",true));
 #else
-	panelPlatforms.add(osxToggle.setup("osx (xcode)",ofGetTargetPlatform()==OF_TARGET_OSX));
-	panelPlatforms.add(iosToggle.setup("ios (xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE));
+	panelPlatforms.add(osxToggle.setup("OSX (Xcode)",ofGetTargetPlatform()==OF_TARGET_OSX));
+	panelPlatforms.add(iosToggle.setup("iOS (Xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE));
 #endif
 	
 	
