@@ -46,6 +46,9 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
@@ -53,6 +56,9 @@
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp">
       <Filter>addons\ofxGui\src</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
@@ -164,6 +170,9 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
@@ -171,6 +180,9 @@
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h">
+      <Filter>addons\ofxGui\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h">
       <Filter>addons\ofxGui\src</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
