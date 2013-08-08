@@ -4,6 +4,8 @@
 
 #include "ofMain.h"
 #include "simplePGPage.h"
+#include "makeProjectsPGPage.h"
+
 
 
 class testApp : public ofBaseApp{
@@ -24,7 +26,14 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
  
         simplePGPage simple;
+        makeProjectsPGPage makeProjects;
     
     
+    enum {
+        MODE_SIMPLE,
+        MODE_MAKE_ALL
+    };
+    
+        int mode;
     
 };
