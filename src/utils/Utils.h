@@ -15,6 +15,10 @@
 #include "ofMain.h"
 
 
+void convertWindowsToUnixPath(string & path);
+string windowsFromUnixPath(string path);
+void fixStringCharacters(string &toFix);
+
 string generateUUID(string input);
 
 string getOFRoot();

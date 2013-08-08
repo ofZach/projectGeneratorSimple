@@ -44,6 +44,38 @@ using namespace Poco;
 #include "ofUtils.h"
 
 
+void convertWindowsToUnixPath(string & path){
+    for (int i = 0; i < path.size(); i++){
+        if (path[i] == '\\') path[i] = '/';
+    }
+}
+
+string windowsFromUnixPath(string path){
+    for (int i = 0; i < path.size(); i++){
+        if (path[i] == '/') path[i] = '\\';
+    }
+	return path;
+}
+
+//------------------------------------------------------
+// for project names, let's fix replace any odd characters with _
+void fixStringCharacters(string &toFix){
+    
+    // replace all non alpha numeric (ascii) characters with _
+    for (int i = 0; i < toFix.size(); i++){
+        int which = (int)toFix[i];
+        if ((which >= 48 && which <= 57) ||
+            (which >= 65 && which <= 90) ||
+            (which >= 97 && which <= 122)){
+        } else {
+            toFix[i] = '_';
+        }
+    }
+}
+
+
+
+
 string StringToUpper(string strToConvert)
 {
     std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::toupper);

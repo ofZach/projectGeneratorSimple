@@ -45,6 +45,8 @@
 		E4C2424810CC5A17004149E2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424510CC5A17004149E2 /* Cocoa.framework */; };
 		E4C2424910CC5A17004149E2 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C2424610CC5A17004149E2 /* IOKit.framework */; };
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
+		FD63DC6817B3CEA90023EEB1 /* basePGPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD63DC6417B3CEA90023EEB1 /* basePGPage.cpp */; };
+		FD63DC6917B3CEA90023EEB1 /* simplePGPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD63DC6617B3CEA90023EEB1 /* simplePGPage.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +106,6 @@
 		116EA81C150E7288004EBBD3 /* CBLinuxProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBLinuxProject.h; sourceTree = "<group>"; };
 		119B95D714A65CA0001E1E20 /* pugiconfig.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugiconfig.hpp; sourceTree = "<group>"; };
 		119B95D814A65CA0001E1E20 /* pugixml.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = pugixml.hpp; sourceTree = "<group>"; };
-		11BCDC821607709900FCCD85 /* textButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textButton.h; sourceTree = "<group>"; };
 		27C4A1A9179491920031C6E4 /* ofxBaseGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxBaseGui.cpp; sourceTree = "<group>"; };
 		27C4A1AA179491920031C6E4 /* ofxBaseGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseGui.h; sourceTree = "<group>"; };
 		27C4A1AB179491920031C6E4 /* ofxButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxButton.cpp; sourceTree = "<group>"; };
@@ -143,6 +144,11 @@
 		E4C2424610CC5A17004149E2 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		FD63DC6217B3CDF20023EEB1 /* textButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textButton.h; sourceTree = "<group>"; };
+		FD63DC6417B3CEA90023EEB1 /* basePGPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basePGPage.cpp; sourceTree = "<group>"; };
+		FD63DC6517B3CEA90023EEB1 /* basePGPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basePGPage.h; sourceTree = "<group>"; };
+		FD63DC6617B3CEA90023EEB1 /* simplePGPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simplePGPage.cpp; sourceTree = "<group>"; };
+		FD63DC6717B3CEA90023EEB1 /* simplePGPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simplePGPage.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,13 +365,14 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				FD63DC6317B3CEA90023EEB1 /* pages */,
+				FD63DC6117B3CDF20023EEB1 /* gui */,
 				113CAA5614F88EDD00D3906E /* utils */,
 				1120712314AE3D4F0035CB7E /* projects */,
 				119B95D214A65CA0001E1E20 /* pugixmlLib */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
-				11BCDC821607709900FCCD85 /* textButton.h */,
 				11D6814214A8EC0F008E3E3D /* addons */,
 			);
 			path = src;
@@ -378,6 +385,25 @@
 				E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */,
 			);
 			name = openFrameworks;
+			sourceTree = "<group>";
+		};
+		FD63DC6117B3CDF20023EEB1 /* gui */ = {
+			isa = PBXGroup;
+			children = (
+				FD63DC6217B3CDF20023EEB1 /* textButton.h */,
+			);
+			path = gui;
+			sourceTree = "<group>";
+		};
+		FD63DC6317B3CEA90023EEB1 /* pages */ = {
+			isa = PBXGroup;
+			children = (
+				FD63DC6417B3CEA90023EEB1 /* basePGPage.cpp */,
+				FD63DC6517B3CEA90023EEB1 /* basePGPage.h */,
+				FD63DC6617B3CEA90023EEB1 /* simplePGPage.cpp */,
+				FD63DC6717B3CEA90023EEB1 /* simplePGPage.h */,
+			);
+			path = pages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,8 +463,7 @@
 		E4328148138ABC890047C5CB /* openFrameworksDebug.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			name = openFrameworksDebug.a;
-			path = openFrameworks.a;
+			path = openFrameworksDebug.a;
 			remoteRef = E4328147138ABC890047C5CB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -487,6 +512,8 @@
 				27C4A1BF179491920031C6E4 /* ofxSlider.cpp in Sources */,
 				27C4A1C0179491920031C6E4 /* ofxSliderGroup.cpp in Sources */,
 				27C4A1C1179491920031C6E4 /* ofxToggle.cpp in Sources */,
+				FD63DC6817B3CEA90023EEB1 /* basePGPage.cpp in Sources */,
+				FD63DC6917B3CEA90023EEB1 /* simplePGPage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
