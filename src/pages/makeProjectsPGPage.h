@@ -15,6 +15,8 @@
 #include "ofxGui.h"
 #endif
 
+#include "textButton.h"
+
 class makeProjectsPGPage : public basePGPage {
 
 	public:
@@ -35,16 +37,13 @@ class makeProjectsPGPage : public basePGPage {
 		void setupForTarget(int targ);
         void generateExamplesCB();
 		void generateExamples();
-		
-        ofFileDialogResult makeNewProjectViaDialog();
-        ofFileDialogResult updateProjectViaDialog();
-
-        void createProjectPressed();
-        void updateProjectPressed();
-        void createAndOpenPressed();
-        void changeOFRootPressed();
-		
-		void setupDrawableOFPath();
+    
+    
+    
+        // new:
+        vector < textButton > buttons;
+    
+    
 		
 		baseProject * project;
     
@@ -58,7 +57,7 @@ class makeProjectsPGPage : public basePGPage {
 		ofRectangle ofPathRect;
 		ofPoint ofPathDrawPoint;
 
-        ofxPanel panelAddons, panelOptions;
+        ofxPanel panelOptions;
         ofxButton createProject, updateProject, createAndOpen, changeOFRoot;
 
 		ofxPanel examplesPanel;

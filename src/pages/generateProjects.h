@@ -17,7 +17,7 @@
 
 
 
-class simplePGPage : public basePGPage {
+class generateProjects : public basePGPage {
 
 	public:
     
@@ -49,7 +49,6 @@ class simplePGPage : public basePGPage {
     
         ofxToggle osxToggle, iosToggle, wincbToggle, winvsToggle, linuxcbToggle, linux64cbToggle;
 
-
         int mode;
         enum { MODE_NORMAL, MODE_ADDON, MODE_PLATFORM };
     
@@ -61,8 +60,6 @@ class simplePGPage : public basePGPage {
     
         string addonsPath;
         string status;
-    
-        string appToRoot;
         string defaultLoc;
 		
 		float uiLeftX; 
@@ -72,8 +69,6 @@ class simplePGPage : public basePGPage {
         textButton  generateButton;
         textButton  addonButton;
         textButton  platformButton;
-    
-    
     
         vector < textButton > buttons;
 

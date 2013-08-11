@@ -4,6 +4,59 @@
 
 //--------------------------------------------------------------
 void makeProjectsPGPage::setup(){
+    
+    
+    //  Sketch button
+    //
+    
+    textButton button;
+    
+    button.font = font;
+    button.secondFont = secondFont;
+    button.prefix = "Name: ";
+	button.topLeftAnchor.set(76, 160+40); //set top button position - others are set relative to this.
+    button.setText("");
+    
+    button.secondaryText = "<< CLICK TO CHANGE THE NAME";
+    buttons.push_back(button);
+    
+    //  Path button
+    //
+    button.deliminater = "/";
+    button.prefix = "Path: ";
+    button.setText("");
+    button.secondaryText = "<< CLICK TO CHANGE THE DIRECTORY";
+	button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
+    buttons.push_back(button);
+    
+    //  Platform text
+    //
+    button.deliminater = ", ";
+    button.prefix = "Platforms: ";
+    button.secondaryText = "";
+    button.bDrawLong = false;
+    button.secondaryText = "";
+    button.bSelectable = false;
+    button.setText("");
+    
+    button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
+    buttons.push_back(button);
+    
+    //  Addons button
+    //
+    button.deliminater = ", ";
+    button.bDrawLong = true;
+    button.prefix = "Addons: ";
+    button.secondaryText = "<< CLICK TO SELECT ADDONS";
+    button.bSelectable = true;
+    button.setText("");
+    
+    button.topLeftAnchor.set(button.topLeftAnchor.x, button.topLeftAnchor.y + button.rect.height + 20);
+    buttons.push_back(button);
+    
+    
+    
+    
     //ofSetLogLevel(OF_LOG_VERBOSE);
 	project = NULL;
 
@@ -13,8 +66,7 @@ void makeProjectsPGPage::setup(){
 
 	setOFRoot(getOFRootFromConfig());
 
-	setupDrawableOFPath();
-
+	
 	int targ = ofGetTargetPlatform();
 	//plat = OF_TARGET_IPHONE;
 
@@ -41,28 +93,10 @@ void makeProjectsPGPage::setup(){
     }
 
 #ifndef COMMAND_LINE_ONLY
-    panelAddons.setup();
-    ofDirectory addons(ofFilePath::join(getOFRoot(),"addons"));
-    addons.listDir();
-    for(int i=0;i<(int)addons.size();i++){
-    	string addon = addons.getName(i);
-    	if(addon.find("ofx")==0){
-    		ofxToggle * toggle = new ofxToggle();
-    		panelAddons.add(toggle->setup(addon,false,300));
-    	}
-    }
+    
 
-    panelOptions.setup("","settings.xml",ofGetWidth()-panelAddons.getWidth()-10,120);
-    panelOptions.add(createProject.setup("create project",300));
-    panelOptions.add(updateProject.setup("update project",300));
-    panelOptions.add(createAndOpen.setup("create and open project",300));
-    panelOptions.add(changeOFRoot.setup("change OF path",300));
-
-    createProject.addListener(this,&makeProjectsPGPage::createProjectPressed);
-    updateProject.addListener(this,&makeProjectsPGPage::updateProjectPressed);
-    createAndOpen.addListener(this,&makeProjectsPGPage::createAndOpenPressed);
-    changeOFRoot.addListener(this,&makeProjectsPGPage::changeOFRootPressed);
-
+    
+    
 	examplesPanel.setup("generate examples", "examples.xml", 400, 10);
 	examplesPanel.add(generateButton.setup("<--Generate"));
 	examplesPanel.add(wincbToggle.setup("win CB projects",ofGetTargetPlatform()==OF_TARGET_WINGCC));
@@ -210,134 +244,17 @@ void makeProjectsPGPage::generateExamples(){
     ofLogNotice() << "Finished generating examples for " << target;
 }
 
-ofFileDialogResult makeProjectsPGPage::makeNewProjectViaDialog(){
-
-#ifndef COMMAND_LINE_ONLY
-    ofFileDialogResult res = ofSystemSaveDialog("newProjectName", "choose a folder for a new OF project :)");
-    if (res.fileName == "" || res.filePath == "") return res;
-    //base.pushDirectory(res.fileName);   // somehow an extra things here helps?
-
-    vector <int> targetsToMake;
-	if( osxToggle )		targetsToMake.push_back(OF_TARGET_OSX);
-	if( iosToggle )		targetsToMake.push_back(OF_TARGET_IPHONE);
-	if( wincbToggle )	targetsToMake.push_back(OF_TARGET_WINGCC);
-	if( winvsToggle )	targetsToMake.push_back(OF_TARGET_WINVS);
-	if( linuxcbToggle )	targetsToMake.push_back(OF_TARGET_LINUX);
-	if( linux64cbToggle )	targetsToMake.push_back(OF_TARGET_LINUX64);
-	if( linuxarmv6lcbToggle )	targetsToMake.push_back(OF_TARGET_LINUXARMV6L);
-	if( linuxarmv7lcbToggle )	targetsToMake.push_back(OF_TARGET_LINUXARMV7L);
-
-	if( targetsToMake.size() == 0 ){
-		cout << "Error: makeNewProjectViaDialog - must specifiy a project to generate " <<endl;
-		ofSystemAlertDialog("Error: makeNewProjectViaDialog - must specifiy a project platform to generate");
-	}
-
-	for(int i = 0; i < (int)targetsToMake.size(); i++){
-		setupForTarget(targetsToMake[i]);
-        project->setup(target);
-        if(project->create(res.filePath)){
-            vector<string> addonsToggles = panelAddons.getControlNames();
-            for (int i = 0; i < (int) addonsToggles.size(); i++){
-                ofxToggle toggle = panelAddons.getToggle(addonsToggles[i]);
-                if(toggle){
-                    ofAddon addon;
-                    addon.pathToOF = getOFRelPath(res.filePath);
-                    addon.fromFS(ofFilePath::join(ofFilePath::join(getOFRoot(), "addons"), addonsToggles[i]),target);
-                    printf("adding %s addons \n", addonsToggles[i].c_str());
-                    project->addAddon(addon);
-
-                }
-            }
-            project->save(true);
-        }
-	}
-    return res;
-#endif
-
-}
-
-ofFileDialogResult makeProjectsPGPage::updateProjectViaDialog(){
-
-#ifndef COMMAND_LINE_ONLY
-    ofFileDialogResult res = ofSystemLoadDialog("choose a folder to update an OF project :)",true);
-    if (res.fileName == "" || res.filePath == "") return res;
-    //base.pushDirectory(res.fileName);   // somehow an extra things here helps?
-
-    vector <int> targetsToMake;
-	if( osxToggle )		targetsToMake.push_back(OF_TARGET_OSX);
-	if( iosToggle )		targetsToMake.push_back(OF_TARGET_IPHONE);
-	if( wincbToggle )	targetsToMake.push_back(OF_TARGET_WINGCC);
-	if( winvsToggle )	targetsToMake.push_back(OF_TARGET_WINVS);
-	if( linuxcbToggle )	targetsToMake.push_back(OF_TARGET_LINUX);
-	if( linux64cbToggle )	targetsToMake.push_back(OF_TARGET_LINUX64);
-	if( linuxarmv6lcbToggle )	targetsToMake.push_back(OF_TARGET_LINUXARMV6L);
-	if( linuxarmv7lcbToggle )	targetsToMake.push_back(OF_TARGET_LINUXARMV7L);
-
-	if( targetsToMake.size() == 0 ){
-		cout << "Error: updateProjectViaDialog - must specifiy a project to generate " <<endl;
-		ofSystemAlertDialog("Error: updateProjectViaDialog - must specifiy a project platform to generate");
-	}
-
-	for(int i = 0; i < (int)targetsToMake.size(); i++){
-		setupForTarget(targetsToMake[i]);
-        project->setup(target);
-        project->create(res.filePath);
-        vector<string> addonsToggles = panelAddons.getControlNames();
-        for (int i = 0; i < (int)addonsToggles.size(); i++){
-            ofxToggle toggle = panelAddons.getToggle(addonsToggles[i]);
-            // TODO: make this remove existing addons that are unchecked????
-            // probably requires a more complex logic chain: loadProject
-            // (ticks the addons) and then you can untick etc???
-            if(toggle){
-                ofAddon addon;
-                addon.pathToOF = getOFRelPath(res.filePath);
-                addon.fromFS(ofFilePath::join(ofFilePath::join(getOFRoot(), "addons"), addonsToggles[i]),target);
-                printf("adding %s addons \n", addonsToggles[i].c_str());
-                project->addAddon(addon);
-
-            }
-        }
-        project->save(true);
-	}
-
-	return res;
-#endif
-
-}
-
-void makeProjectsPGPage::createProjectPressed(){
-	makeNewProjectViaDialog();
-}
-
-void makeProjectsPGPage::updateProjectPressed(){
-	updateProjectViaDialog();
-}
-
-void makeProjectsPGPage::createAndOpenPressed(){
-	ofFileDialogResult res = makeNewProjectViaDialog();
-	if(res.bSuccess){
-		#ifdef TARGET_LINUX
-			system(("/usr/bin/codeblocks " + ofFilePath::join(res.filePath, res.fileName+".workspace ") + "&").c_str());
-		#elif defined(TARGET_OSX)
-			system(("open " + ofFilePath::join(res.filePath, res.fileName+".xcodeproj ") + "&").c_str());
-		#elif defined(TARGET_WIN32)
-			system(("open " + ofFilePath::join(res.filePath, res.fileName+".workspace ") + "&").c_str());
-		#endif
-	}
-}
-
-void makeProjectsPGPage::changeOFRootPressed(){
-	askOFRoot();
-	cout << getOFRootFromConfig()<<endl;
-	setOFRoot(getOFRootFromConfig());
-	setupDrawableOFPath();
-}
 
 
 
 //--------------------------------------------------------------
 void makeProjectsPGPage::update(){
 
+    for (int i = 0; i < buttons.size(); i++){
+        if (i != 0){
+			buttons[i].topLeftAnchor.y = buttons[i-1].topLeftAnchor.y +buttons[i-1].rect.height + 20;
+        }
+    }
 
 
 }
@@ -348,8 +265,7 @@ void makeProjectsPGPage::draw(){
 #ifndef COMMAND_LINE_ONLY
     //ofBackgroundGradient(ofColor::gray,ofColor::black);
 
-    panelAddons.draw();
-	panelOptions.draw();
+    panelOptions.draw();
 	examplesPanel.draw();
 
 	ofSetColor(0,0,0,100);
@@ -361,22 +277,16 @@ void makeProjectsPGPage::draw(){
     ofDrawBitmapString(drawableOfPath, ofPathDrawPoint);
 #endif
 
+    
+    
+    for (int i = 0; i < buttons.size(); i++){
+        buttons[i].draw();
+    }
+    
 }
 
 //--------------------------------------------------------------
 void makeProjectsPGPage::keyPressed(int key){
-
-    if (key == 'm'){
-
-        printf("generating examples \n");
-        generateExamples();
-        printf("finished generating examples \n");
-
-    }
-
-    if (key == ' '){
-        makeNewProjectViaDialog();
-    }
 
 
 }
@@ -408,7 +318,7 @@ void makeProjectsPGPage::mouseReleased(int x, int y, int button){
 
 //--------------------------------------------------------------
 void makeProjectsPGPage::windowResized(int w, int h){
-	setupDrawableOFPath();
+	
 }
 
 //--------------------------------------------------------------
@@ -420,48 +330,47 @@ void makeProjectsPGPage::gotMessage(ofMessage msg){
 void makeProjectsPGPage::dragEvent(ofDragInfo dragInfo){
 
 }
-
-//--------------------------------------------------------------
-void makeProjectsPGPage::setupDrawableOFPath(){
-
-#ifndef COMMAND_LINE_ONLY
-	vector<string> subdirs = ofSplitString("OF path: " + getOFRoot(), "/");
-	int textLength = 0;
-	int padding = 5;
-	string path = "";
-	int lines=1;
-	int fontSize = 8;
-	float leading = 1.7;
-
-	ofPathRect.x = padding;
-	ofPathRect.y = padding;
-	ofPathDrawPoint.x = padding*2;
-	ofPathDrawPoint.y = padding*2 + fontSize * leading;
-
-	for(int i = 0; i < subdirs.size(); i++) {
-		if (i > 0 && i<subdirs.size()-1) {
-			subdirs[i] += "/";
-		}
-		if(textLength + subdirs[i].length()*fontSize < ofGetWidth()-padding){
-			textLength += subdirs[i].length()*fontSize;
-			path += subdirs[i];
-		}else {
-			path += "\n";
-			textLength = 0;
-			lines++;
-		}
-	}
-	ofPathRect.width = textLength + padding*2;
-	if (lines > 1){
-		ofPathRect.width = ofGetWidth() - padding*2;
-	}
-	ofPathRect.height = lines * fontSize * leading + (padding*2);
-
-	drawableOfPath = path;
-
-	panelAddons.setPosition(panelAddons.getPosition().x, ofPathRect.y + ofPathRect.height + padding);
-	examplesPanel.setPosition(examplesPanel.getPosition().x, ofPathRect.y + ofPathRect.height + padding);
-#endif
-
-
-}
+//
+////--------------------------------------------------------------
+//void makeProjectsPGPage::setupDrawableOFPath(){
+//
+//#ifndef COMMAND_LINE_ONLY
+//	vector<string> subdirs = ofSplitString("OF path: " + getOFRoot(), "/");
+//	int textLength = 0;
+//	int padding = 5;
+//	string path = "";
+//	int lines=1;
+//	int fontSize = 8;
+//	float leading = 1.7;
+//
+//	ofPathRect.x = padding;
+//	ofPathRect.y = padding;
+//	ofPathDrawPoint.x = padding*2;
+//	ofPathDrawPoint.y = padding*2 + fontSize * leading;
+//
+//	for(int i = 0; i < subdirs.size(); i++) {
+//		if (i > 0 && i<subdirs.size()-1) {
+//			subdirs[i] += "/";
+//		}
+//		if(textLength + subdirs[i].length()*fontSize < ofGetWidth()-padding){
+//			textLength += subdirs[i].length()*fontSize;
+//			path += subdirs[i];
+//		}else {
+//			path += "\n";
+//			textLength = 0;
+//			lines++;
+//		}
+//	}
+//	ofPathRect.width = textLength + padding*2;
+//	if (lines > 1){
+//		ofPathRect.width = ofGetWidth() - padding*2;
+//	}
+//	ofPathRect.height = lines * fontSize * leading + (padding*2);
+//
+//	drawableOfPath = path;
+//
+//	examplesPanel.setPosition(examplesPanel.getPosition().x, ofPathRect.y + ofPathRect.height + padding);
+//#endif
+//
+//
+//}

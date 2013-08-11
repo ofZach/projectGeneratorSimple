@@ -12,8 +12,50 @@ void testApp::setup(){
     
     mode = MODE_SIMPLE;
     
+    
+    //-------------------------------------
+    // load fonts
+    
+    font.loadFont("fonts/Inconsolata.otf", 14, true,false,false,0.3,90);
+    titleFont.loadFont("fonts/Inconsolata.otf", 28, true,false,false,0.3,90);
+    secondFont.loadFont("fonts/Inconsolata.otf", 11, true,false,false,0.3,90);
+    
+    
+    
+    //-------------------------------------
+    // load settings
+    
+    XML.loadFile("settings/projectGeneratorSettings.xml");
+    string appToRoot = XML.getValue("settings:base:appToRoot", "../../../../");
+    string defaultLoc = XML.getValue("settings:simplePage:defaultNewProjectLocation", "apps/myApps");
+    bool bMultiPlaform = XML.getValue("settings:base:multiplatform", 0) == 0 ? false : true;
+    basePGPage::pgSettings settings;
+    settings.appRoot = appToRoot;
+    settings.defaultNewProjectLocation = defaultLoc;
+    settings.multiplatform = bMultiPlaform;
+    
+    cout << settings.appRoot << endl;
+    
+    simple.settings = settings;
+    makeProjects.settings = settings;
+    
+    
+    
+    simple.font = &font;
+    simple.titleFont = &titleFont;
+    simple.secondFont = &secondFont;
+    
+    makeProjects.font = &font;
+    makeProjects.titleFont = &titleFont;
+    makeProjects.secondFont = &secondFont;
+    
+    //-------------------------------------
+    
     simple.setup();
     makeProjects.setup();
+    
+    
+    
 }
 
 //--------------------------------------------------------------

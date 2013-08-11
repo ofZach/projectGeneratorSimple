@@ -21,18 +21,28 @@ public:
     ofRectangle rect;
     bool bSelectable;
     bool bDrawLong;
-
     string secondaryText;
-
-
     string deliminater;
     int maxWidth;
-
-
     bool bMouseOver;
     ofColor off;
     ofColor on;
-
+    
+    
+    void setup(ofTrueTypeFont * _font, ofTrueTypeFont * _secondFont, string _prefix, string _text, string _secondaryText, ofPoint anchor, string _deliminator = ""){
+        
+        deliminater = _deliminator;
+        
+        font = _font;
+        secondFont = _secondFont;
+        prefix = _prefix;
+        topLeftAnchor.set(anchor); //set top button position - others are set relative to this.
+        setText(_text);
+        secondaryText = _secondaryText;
+        
+    }
+    
+    
 
     void setText(string newText){
 

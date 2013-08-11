@@ -47,7 +47,7 @@
 		E4EB6799138ADC1D00A09F29 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		FD63DC6817B3CEA90023EEB1 /* basePGPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD63DC6417B3CEA90023EEB1 /* basePGPage.cpp */; };
 		FD63DC6917B3CEA90023EEB1 /* simplePGPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD63DC6617B3CEA90023EEB1 /* simplePGPage.cpp */; };
-		FD63DC6C17B3D2C70023EEB1 /* makeProjectsPGPage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD63DC6A17B3D2C70023EEB1 /* makeProjectsPGPage.cpp */; };
+		FD63DC7217B56EE50023EEB1 /* generateProjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FD63DC7017B56EE50023EEB1 /* generateProjects.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,8 +150,8 @@
 		FD63DC6517B3CEA90023EEB1 /* basePGPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = basePGPage.h; sourceTree = "<group>"; };
 		FD63DC6617B3CEA90023EEB1 /* simplePGPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simplePGPage.cpp; sourceTree = "<group>"; };
 		FD63DC6717B3CEA90023EEB1 /* simplePGPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simplePGPage.h; sourceTree = "<group>"; };
-		FD63DC6A17B3D2C70023EEB1 /* makeProjectsPGPage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = makeProjectsPGPage.cpp; sourceTree = "<group>"; };
-		FD63DC6B17B3D2C70023EEB1 /* makeProjectsPGPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = makeProjectsPGPage.h; sourceTree = "<group>"; };
+		FD63DC7017B56EE50023EEB1 /* generateProjects.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generateProjects.cpp; sourceTree = "<group>"; };
+		FD63DC7117B56EE50023EEB1 /* generateProjects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = generateProjects.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,8 +401,8 @@
 		FD63DC6317B3CEA90023EEB1 /* pages */ = {
 			isa = PBXGroup;
 			children = (
-				FD63DC6A17B3D2C70023EEB1 /* makeProjectsPGPage.cpp */,
-				FD63DC6B17B3D2C70023EEB1 /* makeProjectsPGPage.h */,
+				FD63DC7017B56EE50023EEB1 /* generateProjects.cpp */,
+				FD63DC7117B56EE50023EEB1 /* generateProjects.h */,
 				FD63DC6417B3CEA90023EEB1 /* basePGPage.cpp */,
 				FD63DC6517B3CEA90023EEB1 /* basePGPage.h */,
 				FD63DC6617B3CEA90023EEB1 /* simplePGPage.cpp */,
@@ -519,7 +519,7 @@
 				27C4A1C1179491920031C6E4 /* ofxToggle.cpp in Sources */,
 				FD63DC6817B3CEA90023EEB1 /* basePGPage.cpp in Sources */,
 				FD63DC6917B3CEA90023EEB1 /* simplePGPage.cpp in Sources */,
-				FD63DC6C17B3D2C70023EEB1 /* makeProjectsPGPage.cpp in Sources */,
+				FD63DC7217B56EE50023EEB1 /* generateProjects.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

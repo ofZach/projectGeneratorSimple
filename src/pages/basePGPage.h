@@ -21,4 +21,16 @@ class basePGPage {
 		virtual void dragEvent(ofDragInfo dragInfo) = 0;;
 		virtual void gotMessage(ofMessage msg) = 0;;
  
+        
+        typedef struct {
+            string appRoot;
+            bool multiplatform;
+            string defaultNewProjectLocation;
+        } pgSettings;
+    
+        pgSettings settings;
+    
+        ofTrueTypeFont * font;
+        ofTrueTypeFont * titleFont;
+        ofTrueTypeFont * secondFont;
 };

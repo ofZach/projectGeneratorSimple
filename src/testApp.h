@@ -5,7 +5,7 @@
 #include "ofMain.h"
 #include "simplePGPage.h"
 #include "makeProjectsPGPage.h"
-
+#include "generateProjects.h"
 
 
 class testApp : public ofBaseApp{
@@ -26,7 +26,13 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
  
         simplePGPage simple;
-        makeProjectsPGPage makeProjects;
+        generateProjects makeProjects;
+        ofxXmlSettings XML;
+    
+    
+        ofTrueTypeFont font;
+        ofTrueTypeFont titleFont;
+        ofTrueTypeFont secondFont;
     
     
     enum {

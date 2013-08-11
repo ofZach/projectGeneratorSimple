@@ -8,17 +8,19 @@
 int main(  int argc, char *argv[]  ){
     
     
-    
+   
     
     cout << "In main." << endl;
     cout << "ofGetTargetPlatform=" << ofGetTargetPlatform() << endl;
     
 #ifdef TARGET_LINUX
+    cout << "linux " << endl;
 	if(argc==1){
 		
         ofAppGlutWindow window;
         ofSetupOpenGL(&window, 1024, 610, OF_WINDOW);
         testApp * app = new testApp;
+        
         ofRunApp( app );
         
 	}else{
@@ -102,10 +104,11 @@ int main(  int argc, char *argv[]  ){
 		ofRunApp( app );
 	}
 #else
-    
+    printf("??");
     ofAppGlutWindow window;
     ofSetupOpenGL(&window, 1024, 610, OF_WINDOW);
     testApp * app = new testApp;
+    //app->makeProjects.buildAllExamples = false;
     ofRunApp( app );
     
 #endif
