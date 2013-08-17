@@ -33,44 +33,44 @@ class testApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-
-
+ 
+    
         string sketchName;
         string sketchPath;
         string addons;
         string platform;
-
+    
         ofxPanel panelCoreAddons;
         ofxPanel panelOtherAddons;
         bool bHaveNonCoreAddons;
-
+    
         ofxPanel panelPlatforms;
-
-        ofxToggle osxToggle, iosToggle, wincbToggle, winvsToggle, linuxcbToggle, linux64cbToggle, linuxCodeliteToggle;
+    
+        ofxToggle osxToggle, iosToggle, wincbToggle, winvsToggle, linuxcbToggle, linux64cbToggle;
 
         ofTrueTypeFont font;
         ofTrueTypeFont titleFont;
         ofTrueTypeFont secondFont;
-
+    
         int mode;
         enum { MODE_NORMAL, MODE_ADDON, MODE_PLATFORM };
-
+    
         baseProject * project;
-
+    
         string setupForTarget(int targ);
-
+    
         void generateProject();
-
+    
         string addonsPath;
         string status;
-
+    
         ofxXmlSettings XML;
         string appToRoot;
         string defaultLoc;
-
-		float uiLeftX;
-
-
+		
+		float uiLeftX; 
+    
+    
         textButton  button;
         textButton  generateButton;
         textButton  addonButton;
@@ -79,12 +79,13 @@ class testApp : public ofBaseApp{
         bool isAddonCore(string addon);
         bool bInited;
         vector < string  > coreAddons;
-
-
+    
+        
         float statusSetTime;
         float statusEnergy;
         void setStatus(string newStatus);
-
+        
         ofImage logo;
-
+		void addAddon(string addon);
+    
 };

@@ -44,6 +44,13 @@ using namespace Poco;
 #include "ofUtils.h"
 
 
+string StringToUpper(string strToConvert)
+{
+    std::transform(strToConvert.begin(), strToConvert.end(), strToConvert.begin(), ::toupper);
+    
+    return strToConvert;
+}
+
 string generateUUID(string input){
 
     std::string passphrase("openFrameworks"); // HMAC needs a passphrase
@@ -54,6 +61,8 @@ string generateUUID(string input){
     const DigestEngine::Digest& digest = hmac.digest(); // finish HMAC computation and obtain digest
     std::string digestString(DigestEngine::digestToHex(digest)); // convert to a string of hexadecimal numbers
 
+    digestString = digestString.substr(0,24);
+    digestString = StringToUpper(digestString);
     return digestString;
 }
 
@@ -198,7 +207,7 @@ bool isFolderNotCurrentPlatform(string folderName, string platform){
 	if( platforms.size() == 0 ){
 		platforms.push_back("osx");
 		platforms.push_back("win_cb");
-		platforms.push_back("vs2010");
+		platforms.push_back("vs");
 		platforms.push_back("ios");
 		platforms.push_back("linux");
 		platforms.push_back("linux64");
@@ -239,6 +248,34 @@ void getFoldersRecursively(const string & path, vector < string > & folderNames,
     }
     folderNames.push_back(path);
 }
+
+
+void getFrameworksRecursively( const string & path, vector < string > & frameworks, string platform){
+    
+    
+    ofDirectory dir;
+    dir.listDir(path);
+    
+    for (int i = 0; i < dir.size(); i++){
+        
+        ofFile temp(dir.getFile(i));
+        
+        if (temp.isDirectory()){
+            //getLibsRecursively(dir.getPath(i), folderNames);
+            
+            // on osx, framework is a directory, let's not parse it....
+            string ext = "";
+            string first = "";
+            splitFromLast(dir.getPath(i), ".", first, ext);
+            if (ext != "framework")
+                getFrameworksRecursively(dir.getPath(i), frameworks, platform);
+            else
+                frameworks.push_back(dir.getPath(i));
+        }
+        
+    }
+}
+
 
 
 
@@ -303,7 +340,13 @@ void getLibsRecursively(const string & path, vector < string > & libFiles, vecto
             
             if (temp.isDirectory()){
                 //getLibsRecursively(dir.getPath(i), folderNames);
-                getLibsRecursively(dir.getPath(i), libFiles, libLibs, platform);
+                
+                // on osx, framework is a directory, let's not parse it....
+                string ext = "";
+                string first = "";
+                splitFromLast(dir.getPath(i), ".", first, ext);
+                if (ext != "framework")
+                    getLibsRecursively(dir.getPath(i), libFiles, libLibs, platform);
                 
             } else {
                 
@@ -465,7 +508,7 @@ string getOFRelPath(string from){
 		}
 	}
 
-    ofLogVerbose() << " returning path " << relPath << endl;
+	ofLogVerbose() << "returning path " << relPath << endl;
 
     return relPath;
 }
