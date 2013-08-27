@@ -39,7 +39,34 @@ class testApp : public ofBaseApp{
         MODE_SIMPLE,
         MODE_MAKE_ALL
     };
-    
         int mode;
+
+        void generateProject();
+    
+        string addonsPath;
+        string status;
+    
+        string appToRoot;
+        string defaultLoc;
+		
+		float uiLeftX; 
+    
+    
+        textButton  button;
+        textButton  generateButton;
+        textButton  addonButton;
+        vector < textButton > buttons;
+
+        bool isAddonCore(string addon);
+        bool bInited;
+        vector < string  > coreAddons;
+    
+        
+        float statusSetTime;
+        float statusEnergy;
+        void setStatus(string newStatus);
+        
+        ofImage logo;
+		void addAddon(string addon);
     
 };
