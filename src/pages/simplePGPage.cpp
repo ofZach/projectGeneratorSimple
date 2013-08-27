@@ -118,12 +118,14 @@ void simplePGPage::setup(){
     string binPath = ofFilePath::getCurrentExeDir();
 #endif
 
-    string ofRoot = ofFilePath::getAbsolutePath(ofFilePath::join(binPath, appToRoot));
+    string ofRoot = ofFilePath::getAbsolutePath(ofFilePath::join(binPath, settings.appRoot));
 
     addonsPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot,"addons"));
-    sketchPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot, defaultLoc));
+    sketchPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot, settings.defaultNewProjectLocation));
 
-
+    
+    
+    
     convertWindowsToUnixPath(ofRoot);
     convertWindowsToUnixPath(addonsPath);
     convertWindowsToUnixPath(sketchPath);

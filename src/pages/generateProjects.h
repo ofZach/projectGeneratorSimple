@@ -40,6 +40,7 @@ class generateProjects : public basePGPage {
         string sketchPath;
         string addons;
         string platform;
+    string examplesPath;
     
         ofxPanel panelCoreAddons;
         ofxPanel panelOtherAddons;
@@ -57,6 +58,8 @@ class generateProjects : public basePGPage {
         string setupForTarget(int targ);
     
         void generateProject();
+        void generateExamples();
+    
     
         string addonsPath;
         string status;

@@ -88,7 +88,7 @@ void generateProjects::setup(){
 #endif
 
     string ofRoot = ofFilePath::getAbsolutePath(ofFilePath::join(binPath, settings.appRoot));
-    string examplesPath = ofFilePath::join(ofRoot, "examples");
+    examplesPath = ofFilePath::join(ofRoot, "examples");
     
     addonsPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot,"addons"));
     sketchPath = ofFilePath::getAbsolutePath(ofFilePath::join(ofRoot, defaultLoc));
@@ -341,77 +341,144 @@ void generateProjects::keyPressed(int key){
 
     if (key == ' '){
 
-        //printf("%s -------- \n", ResultBuffer);
-        //std::exit(0);
     }
 
 
 }
 
+
+void generateProjects::generateExamples(){
+    
+    
+    
+    ofDirectory dir;
+    //string examplesPath = ofFilePath::join(getOFRoot(),"examples");
+	ofLogNotice() << "Generating examples (from: " << examplesPath << ")";
+    dir.listDir(examplesPath);
+    
+    
+    // vector <int> targetsToMake;
+    //	if( osxToggle )		targetsToMake.push_back(OF_TARGET_OSX);
+    //	if( iosToggle )		targetsToMake.push_back(OF_TARGET_IPHONE);
+    //	if( wincbToggle )	targetsToMake.push_back(OF_TARGET_WINGCC);
+    //	if( winvsToggle )	targetsToMake.push_back(OF_TARGET_WINVS);
+    //	if( linuxcbToggle )	targetsToMake.push_back(OF_TARGET_LINUX);
+    //	if( linux64cbToggle )	targetsToMake.push_back(OF_TARGET_LINUX64);
+    
+    
+    string target = setupForTarget(OF_TARGET_OSX);
+    
+    for (int i = 0; i < (int)dir.size(); i++){
+        
+        // don't check subdirectories that aren't directories! (eg., .gitignore etc)
+        if(!dir.getFile(i).isDirectory()) continue;
+        
+		if( target == "ios" ){
+			if( dir.getName(i) != "ios" ) continue;
+		}else{
+			if (dir.getName(i) == "android" || dir.getName(i) == "ios") continue;
+        }
+        
+        ofDirectory subdir;
+        string examplesPath = dir.getPath(i);
+        
+		ofLogNotice() << "Generating examples in folder: " << examplesPath;
+        
+        subdir.listDir(examplesPath);
+        
+        for (int j = 0; j < (int)subdir.size(); j++){
+            
+            // don't create projects that aren't directories! (eg., .gitkeep etc)
+            if(!subdir.getFile(j).isDirectory()) continue;
+            
+			ofLogNotice() << "------------------------------------------------";
+			ofLogNotice() << "Generating example: " << subdir.getPath(j);
+			ofLogNotice() << "------------------------------------------------";
+            
+            project->setup(target);
+            project->create(subdir.getPath(j));
+            vector < string > addons;
+            parseAddonsDotMake(project->getPath() + "addons.make", addons);
+            for (int i = 0; i < (int)addons.size(); i++){
+                ofAddon addon;
+                addon.pathToOF = getOFRelPath(subdir.getPath(j));
+                addon.fromFS(ofFilePath::join(ofFilePath::join(getOFRoot(), "addons"), addons[i]),target);
+                project->addAddon(addon);
+            }
+            project->save(false);
+            
+        }
+    }
+    ofLogNotice() << " ";
+    ofLogNotice() << "Finished generating examples for " << target;
+}
+
+
+
 void generateProjects::generateProject(){
 
-    vector <int> targetsToMake;
-	if( osxToggle )		targetsToMake.push_back(OF_TARGET_OSX);
-	if( iosToggle )		targetsToMake.push_back(OF_TARGET_IPHONE);
-	if( wincbToggle )	targetsToMake.push_back(OF_TARGET_WINGCC);
-	if( winvsToggle )	targetsToMake.push_back(OF_TARGET_WINVS);
-	if( linuxcbToggle )	targetsToMake.push_back(OF_TARGET_LINUX);
-	if( linux64cbToggle )	targetsToMake.push_back(OF_TARGET_LINUX64);
-
-	if( targetsToMake.size() == 0 ){
-		cout << "Error: makeNewProjectViaDialog - must specifiy a project to generate " <<endl;
-		ofSystemAlertDialog("Error: makeNewProjectViaDialog - must specifiy a project platform to generate");
-        return;
-	}
-
-    if (buttons[0].myText.size() == 0){
-        ofSystemAlertDialog("Error: project must have a name");
-        return;
-    }
-
-
-
-    printf("start with project generation \n");
-
-    string path = ofFilePath::join(buttons[1].myText, buttons[0].myText);
-
-	for(int i = 0; i < (int)targetsToMake.size(); i++){
-		string target = setupForTarget(targetsToMake[i]);
-        if(project->create(path)){
-            vector<string> addonsToggles = panelCoreAddons.getControlNames();
-            for (int i = 0; i < (int) addonsToggles.size(); i++){
-                ofxToggle toggle = panelCoreAddons.getToggle(addonsToggles[i]);
-                if(toggle){
-                    ofAddon addon;
-                    addon.pathToOF = getOFRelPath(path);
-                    addon.fromFS(ofFilePath::join(addonsPath, addonsToggles[i]),target);
-                    project->addAddon(addon);
-
-                }
-            }
-
-
-            addonsToggles = panelOtherAddons.getControlNames();
-            for (int i = 0; i < (int) addonsToggles.size(); i++){
-                ofxToggle toggle = panelOtherAddons.getToggle(addonsToggles[i]);
-                if(toggle){
-                    ofAddon addon;
-
-                    addon.pathToOF = getOFRelPath(path);
-                    cout << getOFRelPath(path) << " " << path << endl;
-                    addon.fromFS(ofFilePath::join(addonsPath, addonsToggles[i]),target);
-                    project->addAddon(addon);
-
-                }
-            }
-
-            project->save(true);
-        }
-	}
-
-
-    printf("done with project generation \n");
-    setStatus("generated: " + buttons[1].myText + "/" + buttons[0].myText);
+//    vector <int> targetsToMake;
+//	if( osxToggle )		targetsToMake.push_back(OF_TARGET_OSX);
+//	if( iosToggle )		targetsToMake.push_back(OF_TARGET_IPHONE);
+//	if( wincbToggle )	targetsToMake.push_back(OF_TARGET_WINGCC);
+//	if( winvsToggle )	targetsToMake.push_back(OF_TARGET_WINVS);
+//	if( linuxcbToggle )	targetsToMake.push_back(OF_TARGET_LINUX);
+//	if( linux64cbToggle )	targetsToMake.push_back(OF_TARGET_LINUX64);
+//
+//	if( targetsToMake.size() == 0 ){
+//		cout << "Error: makeNewProjectViaDialog - must specifiy a project to generate " <<endl;
+//		ofSystemAlertDialog("Error: makeNewProjectViaDialog - must specifiy a project platform to generate");
+//        return;
+//	}
+//
+//    if (buttons[0].myText.size() == 0){
+//        ofSystemAlertDialog("Error: project must have a name");
+//        return;
+//    }
+//
+//
+//
+//    printf("start with project generation \n");
+//
+//    string path = ofFilePath::join(buttons[1].myText, buttons[0].myText);
+//
+//	for(int i = 0; i < (int)targetsToMake.size(); i++){
+//		string target = setupForTarget(targetsToMake[i]);
+//        if(project->create(path)){
+//            vector<string> addonsToggles = panelCoreAddons.getControlNames();
+//            for (int i = 0; i < (int) addonsToggles.size(); i++){
+//                ofxToggle toggle = panelCoreAddons.getToggle(addonsToggles[i]);
+//                if(toggle){
+//                    ofAddon addon;
+//                    addon.pathToOF = getOFRelPath(path);
+//                    addon.fromFS(ofFilePath::join(addonsPath, addonsToggles[i]),target);
+//                    project->addAddon(addon);
+//
+//                }
+//            }
+//
+//
+//            addonsToggles = panelOtherAddons.getControlNames();
+//            for (int i = 0; i < (int) addonsToggles.size(); i++){
+//                ofxToggle toggle = panelOtherAddons.getToggle(addonsToggles[i]);
+//                if(toggle){
+//                    ofAddon addon;
+//
+//                    addon.pathToOF = getOFRelPath(path);
+//                    cout << getOFRelPath(path) << " " << path << endl;
+//                    addon.fromFS(ofFilePath::join(addonsPath, addonsToggles[i]),target);
+//                    project->addAddon(addon);
+//
+//                }
+//            }
+//
+//            project->save(true);
+//        }
+//	}
+//
+//
+//    printf("done with project generation \n");
+//    setStatus("generated: " + buttons[1].myText + "/" + buttons[0].myText);
 
     // go through the control panels, do stuff
 }
@@ -446,6 +513,14 @@ void generateProjects::mousePressed(int x, int y, int button){
         }
         
 
+        //-------------------------------------
+        // 4 = genearate
+        //-------------------------------------
+        
+        
+        if (generateButton.bMouseOver == true){
+            generateExamples();
+        }
        
 
        
@@ -500,6 +575,7 @@ void generateProjects::mousePressed(int x, int y, int button){
                 string result = res.filePath;
                 convertWindowsToUnixPath(result);
                 buttons[1].setText( result );
+                examplesPath = result;
                 setStatus("path set to: " + result);
             }
         }
