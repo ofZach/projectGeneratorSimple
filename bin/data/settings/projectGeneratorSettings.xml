@@ -1,6 +1,24 @@
 
-<!-- the path from this EXE / APP to the root folder -->
-<appToRoot>../../../../</appToRoot>
+<settings>
 
-<!-- from the OF root, where should we encourage people to put apps -->
-<defaultNewProjectLocation>apps/myApps</defaultNewProjectLocation>
+	<base>	
+
+		<!-- the path from this EXE / APP to the root folder -->
+		<appToRoot>../../../../</appToRoot>
+
+		<!-- do we have multi platforms with this project generator (1) or just the target platform (0) 
+		for a release, we typically do not ship other templates / targets, so for releases the PG shouldn't 
+		support creating projects in other platforms.  The git repo does support this. -->
+
+		<multiplatform>1</multiplatform>
+
+	</base>
+
+	<simplePage>
+	
+		<!-- from the OF root, where should we encourage people to put apps -->
+		<defaultNewProjectLocation>apps/myApps</defaultNewProjectLocation>
+	
+	</simplePage>
+
+</settings>

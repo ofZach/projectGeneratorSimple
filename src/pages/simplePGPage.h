@@ -1,16 +1,26 @@
 #pragma once
 
-//#define COMMAND_LINE_ONLY
+
+#include "basePGPage.h"
 
 #include "ofMain.h"
-#include "simplePGPage.h"
-#include "makeProjectsPGPage.h"
-#include "generateProjects.h"
+#include "CBLinuxProject.h"
+#include "CBWinProject.h"
+#include "visualStudioProject.h"
+#include "xcodeProject.h"
+#include <Poco/Path.h>
+
+#include "ofxGui.h"
+#include "ofAddon.h"
+#include "ofxXmlSettings.h"
+#include "textButton.h"
 
 
-class testApp : public ofBaseApp{
+
+class simplePGPage : public basePGPage {
 
 	public:
+    
 		void setup();
 		void update();
 		void draw();
@@ -25,22 +35,28 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
  
-        simplePGPage simple;
-        generateProjects makeProjects;
-        ofxXmlSettings XML;
     
+        string sketchName;
+        string sketchPath;
+        string addons;
+        string platform;
     
-        ofTrueTypeFont font;
-        ofTrueTypeFont titleFont;
-        ofTrueTypeFont secondFont;
+        ofxPanel panelCoreAddons;
+        ofxPanel panelOtherAddons;
+        bool bHaveNonCoreAddons;
     
+        ofxPanel panelPlatforms;
     
-    enum {
-        MODE_SIMPLE,
-        MODE_MAKE_ALL
-    };
-        int mode;
+        ofxToggle osxToggle, iosToggle, wincbToggle, winvsToggle, linuxcbToggle, linux64cbToggle;
 
+
+        int mode;
+        enum { MODE_NORMAL, MODE_ADDON, MODE_PLATFORM };
+    
+        baseProject * project;
+    
+        string setupForTarget(int targ);
+    
         void generateProject();
     
         string addonsPath;
@@ -55,6 +71,10 @@ class testApp : public ofBaseApp{
         textButton  button;
         textButton  generateButton;
         textButton  addonButton;
+        textButton  platformButton;
+    
+    
+    
         vector < textButton > buttons;
 
         bool isAddonCore(string addon);
@@ -67,6 +87,5 @@ class testApp : public ofBaseApp{
         void setStatus(string newStatus);
         
         ofImage logo;
-		void addAddon(string addon);
     
 };
