@@ -263,6 +263,7 @@ void ofAddon::exclude(vector<string> & variable, vector<string> exclusions){
 			if(regExp.match(variable[j])){
 				variable.erase(variable.begin()+j);
 				j--;
+				cout << "excluded" << endl;
 			}
 		}
 	}
@@ -347,7 +348,8 @@ void ofAddon::fromFS(string path, string platform){
 	name = ofFilePath::getFileName(path);
 	addonPath = ofFilePath::join(getAddonsRoot(),name);
 
-    string filePath = path + "/src";
+	string filePath = ofFilePath::join(path, "/src");
+	toForwardSlashOrder(filePath);
     string ofRootPath = ofFilePath::addTrailingSlash(getOFRoot()); //we need to add a trailing slash for the erase to work properly
 
     ofLogVerbose() << "in fromFS, trying src " << filePath;
@@ -359,17 +361,16 @@ void ofAddon::fromFS(string path, string platform){
     	srcFiles[i].erase (srcFiles[i].begin(), srcFiles[i].begin()+ofRootPath.length());
 		//ofLogVerbose() << " srcFiles " << srcFiles[i];
     	int init = 0;
-#ifdef TARGET_WIN32
-    	int end = srcFiles[i].rfind("\\");
-#else
         int end = srcFiles[i].rfind("/");
-#endif
     	string folder = srcFiles[i].substr(init,end);
     	srcFiles[i] = pathToOF + srcFiles[i];
     	filesToFolders[srcFiles[i]] = folder;
     }
 
-    string libsPath = path + "/libs";
+    string libsPath = ofFilePath::join(path, "/libs");
+#ifdef TARGET_WIN32
+	toForwardSlashOrder(libsPath);
+#endif
     vector < string > libFiles;
 
 
@@ -389,11 +390,7 @@ void ofAddon::fromFS(string path, string platform){
     	libFiles[i].erase (libFiles[i].begin(), libFiles[i].begin()+ofRootPath.length());
 		//ofLogVerbose() << " libFiles " << libFiles[i];
     	int init = 0;
-#ifdef TARGET_WIN32
-    	int end = libFiles[i].rfind("\\");
-#else
         int end = libFiles[i].rfind("/");
-#endif
         if (end > 0){
             string folder = libFiles[i].substr(init,end);
             libFiles[i] = pathToOF + libFiles[i];
@@ -406,11 +403,7 @@ void ofAddon::fromFS(string path, string platform){
     for (int i = 0; i < (int)libs.size(); i++){
 
         // does libs[] have any path ? let's fix if so.
-#ifdef TARGET_WIN32
-    	int end = libs[i].rfind("\\");
-#else
         int end = libs[i].rfind("/");
-#endif
         if (end > 0){
 
             libs[i].erase (libs[i].begin(), libs[i].begin()+ofRootPath.length());
@@ -422,11 +415,7 @@ void ofAddon::fromFS(string path, string platform){
     for (int i = 0; i < (int)frameworks.size(); i++){
 
         // does libs[] have any path ? let's fix if so.
-#ifdef TARGET_WIN32
-    	int end = frameworks[i].rfind("\\");
-#else
         int end = frameworks[i].rfind("/");
-#endif
         if (end > 0){
 
             frameworks[i].erase (frameworks[i].begin(), frameworks[i].begin()+ofRootPath.length());
@@ -441,23 +430,19 @@ void ofAddon::fromFS(string path, string platform){
     list < string > paths;
     for (int i = 0; i < (int)srcFiles.size(); i++){
         size_t found;
-#ifdef TARGET_WIN32
-    	found = srcFiles[i].find_last_of("\\");
-#else
         found = srcFiles[i].find_last_of("/");
-#endif
         paths.push_back(srcFiles[i].substr(0,found));
     }
 
     // get every folder in addon/src and addon/libs
 
     vector < string > libFolders;
-    ofLogVerbose() << "trying get folders recursively " << (path + "/libs");
+    ofLogVerbose() << "trying get folders recursively " << ofFilePath::join(path, "/libs");
 
 	// the dirList verbosity is crazy, so I'm setting this off for now.
-    getFoldersRecursively(path + "/libs", libFolders, platform);
+    getFoldersRecursively(ofFilePath::join(path, "/libs"), libFolders, platform);
     vector < string > srcFolders;
-    getFoldersRecursively(path + "/src", srcFolders, platform);
+    getFoldersRecursively(ofFilePath::join(path, "/src"), srcFolders, platform);
 
     for (int i = 0; i < (int)libFolders.size(); i++){
         libFolders[i].erase (libFolders[i].begin(), libFolders[i].begin()+ofRootPath.length());

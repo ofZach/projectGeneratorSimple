@@ -194,14 +194,16 @@ void getFilesRecursively(const string & path, vector < string > & fileNames){
     for (int i = 0; i < dir.size(); i++){
         ofFile temp(dir.getFile(i));
         if (dir.getName(i) == ".svn") continue; // ignore svn
+		string file_path = dir.getPath(i);
+#ifdef TARGET_WIN32
+		toForwardSlashOrder(file_path);
+#endif
         if (temp.isFile()){
-            fileNames.push_back(dir.getPath(i));
+            fileNames.push_back(file_path);
         } else if (temp.isDirectory()){
-            getFilesRecursively(dir.getPath(i), fileNames);
+            getFilesRecursively(file_path, fileNames);
         }
     }
-    //folderNames.push_back(path);
-
 }
 
 static vector <string> platforms;
@@ -245,7 +247,11 @@ void getFoldersRecursively(const string & path, vector < string > & folderNames,
     for (int i = 0; i < dir.size(); i++){
         ofFile temp(dir.getFile(i));
         if (temp.isDirectory() && isFolderNotCurrentPlatform(temp.getFileName(), platform) == false ){
-            getFoldersRecursively(dir.getPath(i), folderNames, platform);
+			string folder_path = dir.getPath(i);
+#ifdef TARGET_WIN32
+			toForwardSlashOrder(folder_path);
+#endif
+            getFoldersRecursively(folder_path, folderNames, platform);
         }
     }
     folderNames.push_back(path);
@@ -253,8 +259,6 @@ void getFoldersRecursively(const string & path, vector < string > & folderNames,
 
 
 void getFrameworksRecursively( const string & path, vector < string > & frameworks, string platform){
-    
-    
     ofDirectory dir;
     dir.listDir(path);
     
@@ -263,16 +267,19 @@ void getFrameworksRecursively( const string & path, vector < string > & framewor
         ofFile temp(dir.getFile(i));
         
         if (temp.isDirectory()){
-            //getLibsRecursively(dir.getPath(i), folderNames);
-            
+			string folder_path = dir.getPath(i);
+#ifdef TARGET_WIN32
+			toForwardSlashOrder(folder_path);
+#endif
             // on osx, framework is a directory, let's not parse it....
             string ext = "";
             string first = "";
-            splitFromLast(dir.getPath(i), ".", first, ext);
-            if (ext != "framework")
-                getFrameworksRecursively(dir.getPath(i), frameworks, platform);
-            else
-                frameworks.push_back(dir.getPath(i));
+            splitFromLast(folder_path, ".", first, ext);
+            if (ext != "framework") {
+                getFrameworksRecursively(folder_path, frameworks, platform);
+			} else {
+                frameworks.push_back(folder_path);
+			}
         }
         
     }
@@ -282,19 +289,11 @@ void getFrameworksRecursively( const string & path, vector < string > & framewor
 
 
 void getLibsRecursively(const string & path, vector < string > & libFiles, vector < string > & libLibs, string platform ){
-    
-    
-    
-    
     if (ofFile::doesFileExist(ofFilePath::join(path, "libsorder.make"))){
         
         bool platformFound = false;
         
-#ifdef TARGET_WIN32
-        vector<string> splittedPath = ofSplitString(path,"\\");
-#else
         vector<string> splittedPath = ofSplitString(path,"/");
-#endif
         
         
         if(platform!=""){
@@ -331,27 +330,24 @@ void getLibsRecursively(const string & path, vector < string > & libFiles, vecto
         
         
         for (int i = 0; i < dir.size(); i++){
-            
+			string folder_path = dir.getPath(i);
 #ifdef TARGET_WIN32
-            vector<string> splittedPath = ofSplitString(dir.getPath(i),"\\");
-#else
-            vector<string> splittedPath = ofSplitString(dir.getPath(i),"/");
+			toForwardSlashOrder(folder_path);
 #endif
+            
+            vector<string> splittedPath = ofSplitString(folder_path,"/");
             
             ofFile temp(dir.getFile(i));
             
             if (temp.isDirectory()){
-                //getLibsRecursively(dir.getPath(i), folderNames);
-                
                 // on osx, framework is a directory, let's not parse it....
                 string ext = "";
                 string first = "";
-                splitFromLast(dir.getPath(i), ".", first, ext);
+                splitFromLast(folder_path, ".", first, ext);
                 if (ext != "framework")
-                    getLibsRecursively(dir.getPath(i), libFiles, libLibs, platform);
+                    getLibsRecursively(folder_path, libFiles, libLibs, platform);
                 
             } else {
-                
                 
                 bool platformFound = false;
                 
@@ -369,16 +365,16 @@ void getLibsRecursively(const string & path, vector < string > & libFiles, vecto
                 //string ext = ofFilePath::getFileExt(temp.getFile(i));
                 string ext;
                 string first;
-                splitFromLast(dir.getPath(i), ".", first, ext);
+                splitFromLast(folder_path, ".", first, ext);
                 
                 if (ext == "a" || ext == "lib" || ext == "dylib" || ext == "so" || ext == "dll"){
                     if (platformFound){
-						libLibs.push_back(dir.getPath(i));
+						libLibs.push_back(folder_path);
 						
 						//TODO: THEO hack
 						if( platform == "ios" ){ //this is so we can add the osx libs for the simulator builds
 							
-							string currentPath = dir.getPath(i);
+							string currentPath = folder_path;
 							
 							//TODO: THEO double hack this is why we need install.xml - custom ignore ofxOpenCv 
 							if( currentPath.find("ofxOpenCv") == string::npos ){
@@ -390,7 +386,7 @@ void getLibsRecursively(const string & path, vector < string > & libFiles, vecto
 						}
 					}
                 } else if (ext == "h" || ext == "hpp" || ext == "c" || ext == "cpp" || ext == "cc"){
-                    libFiles.push_back(dir.getPath(i));
+                    libFiles.push_back(folder_path);
                 }
                 
             }
@@ -437,9 +433,11 @@ void getLibsRecursively(const string & path, vector < string > & libFiles, vecto
     
 }
 
+void toForwardSlashOrder(string & toFix){
+    std::replace(toFix.begin(), toFix.end(),'\\', '/');
+}
 
-
-void fixSlashOrder(string & toFix){
+void toDosSlashOrder(string & toFix){
     std::replace(toFix.begin(), toFix.end(),'/', '\\');
 }
 
