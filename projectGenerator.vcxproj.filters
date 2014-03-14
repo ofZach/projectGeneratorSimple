@@ -1,180 +1,246 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup>
-    <Filter Include="src">
-      <UniqueIdentifier>{48f095f5-6680-4fb7-ba62-6e5d4a59b3d3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons">
-      <UniqueIdentifier>{a438fe03-3664-49e1-8a3d-c0f49b8e256d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxGui">
-      <UniqueIdentifier>{966756a9-90b3-462d-9f43-e66ce13ac9c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxGui\src">
-      <UniqueIdentifier>{d9b15813-4d8e-4feb-af69-2dcb671c5546}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxXmlSettings">
-      <UniqueIdentifier>{c76d9651-8ebc-49ba-bec0-c8a9abda3102}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxXmlSettings\src">
-      <UniqueIdentifier>{a12b2e3d-9ce0-4bc4-ac1b-c93770f10cee}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\addons">
-      <UniqueIdentifier>{dbbee140-b712-40e2-9599-16b6b532f8e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\pugixmlLib">
-      <UniqueIdentifier>{07a44bca-7ae5-4f1b-b2af-16f8e734cc04}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\pugixmlLib\src">
-      <UniqueIdentifier>{19df3bd2-e50a-49cb-b98b-afe55e360e64}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\projects">
-      <UniqueIdentifier>{0f9e2643-d98b-44b1-9345-17976da56985}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\utils">
-      <UniqueIdentifier>{217849b9-1bf5-4f68-9732-2edc1db560ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="addons\ofxXmlSettings\libs">
-      <UniqueIdentifier>{904a39a2-a8d4-47d3-9701-383c10559b94}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\testApp.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\addons\ofAddon.h">
-      <Filter>src\addons</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pugixmlLib\src\pugixml.hpp">
-      <Filter>src\pugixmlLib\src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\pugixmlLib\src\pugiconfig.hpp">
-      <Filter>src\pugixmlLib\src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\projects\baseProject.h">
-      <Filter>src\projects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\projects\CBLinuxProject.h">
-      <Filter>src\projects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\projects\CBWinProject.h">
-      <Filter>src\projects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\projects\visualStudioProject.h">
-      <Filter>src\projects</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utils\Utils.h">
-      <Filter>src\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
-      <Filter>addons\ofxXmlSettings\src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\projects\xcodeProject.h">
-      <Filter>src\projects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\textButton.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
-      <Filter>addons\ofxXmlSettings\libs</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\testApp.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\addons\ofAddon.cpp">
-      <Filter>src\addons</Filter>
-    </ClCompile>
-    <ClCompile Include="src\pugixmlLib\src\pugixml.cpp">
-      <Filter>src\pugixmlLib\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\projects\baseProject.cpp">
-      <Filter>src\projects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\projects\CBLinuxProject.cpp">
-      <Filter>src\projects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\projects\CBWinProject.cpp">
-      <Filter>src\projects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\projects\visualStudioProject.cpp">
-      <Filter>src\projects</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utils\Utils.cpp">
-      <Filter>src\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
-      <Filter>addons\ofxXmlSettings\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\projects\xcodeProject.cpp">
-      <Filter>src\projects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp">
-      <Filter>addons\ofxGui\src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp">
-      <Filter>addons\ofxXmlSettings\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
-      <Filter>addons\ofxXmlSettings\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
-      <Filter>addons\ofxXmlSettings\libs</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="icon.rc" />
-  </ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="src\ofApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\main.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\addons\ofAddon.cpp">
+			<Filter>src\addons</Filter>
+		</ClCompile>
+		<ClCompile Include="src\projects\baseProject.cpp">
+			<Filter>src\projects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\projects\CBLinuxProject.cpp">
+			<Filter>src\projects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\projects\CBWinProject.cpp">
+			<Filter>src\projects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\projects\visualStudioProject.cpp">
+			<Filter>src\projects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\projects\xcodeProject.cpp">
+			<Filter>src\projects</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\Jamfile.jam">
+			<Filter>src\pugixmlLib</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\Jamrules.jam">
+			<Filter>src\pugixmlLib</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\lib\libpugixml_d.a">
+			<Filter>src\pugixmlLib\lib</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\readme.txt">
+			<Filter>src\pugixmlLib</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\CMakeLists.txt">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\premake4.lua">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml.xcodeproj\project.pbxproj">
+			<Filter>src\pugixmlLib\scripts\pugixml.xcodeproj</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_codeblocks.cbp">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_codelite.project">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_vs2005.vcproj">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_vs2005_static.vcproj">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_vs2008.vcproj">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_vs2008_static.vcproj">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_vs2010.vcxproj">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\scripts\pugixml_vs2010_static.vcxproj">
+			<Filter>src\pugixmlLib\scripts</Filter>
+		</ClCompile>
+		<ClCompile Include="src\pugixmlLib\src\pugixml.cpp">
+			<Filter>src\pugixmlLib\src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\testApp.cpp">
+			<Filter>src</Filter>
+		</ClCompile>
+		<ClCompile Include="src\utils\Utils.cpp">
+			<Filter>src\utils</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxBaseGui.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxButton.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxLabel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxPanel.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.cpp">
+			<Filter>addons\ofxXmlSettings\src</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.cpp">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlerror.cpp">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\..\addons\ofxXmlSettings\libs\tinyxmlparser.cpp">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<Filter Include="src">
+			<UniqueIdentifier>{d8376475-7454-4a24-b08a-aac121d3ad6f}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\addons">
+			<UniqueIdentifier>{B6C0D928-343F-57FD-EEFB-0BB4}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\projects">
+			<UniqueIdentifier>{FB1E18F7-62A2-A244-E17A-5914}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\pugixmlLib">
+			<UniqueIdentifier>{E0AAE880-D93F-752C-66C5-7C67}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\pugixmlLib\contrib">
+			<UniqueIdentifier>{EFC234D6-70A8-ADD4-184E-1800}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\pugixmlLib\lib">
+			<UniqueIdentifier>{FC6CE0EB-B2D0-6B90-03A8-B40F}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\pugixmlLib\scripts">
+			<UniqueIdentifier>{6EBB2E0D-C16B-6509-9706-5790}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\pugixmlLib\scripts\pugixml.xcodeproj">
+			<UniqueIdentifier>{321E56DA-F360-7DB4-3836-7038}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\pugixmlLib\src">
+			<UniqueIdentifier>{720C0C49-8380-7AC4-1CEE-925E}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="src\utils">
+			<UniqueIdentifier>{FF53B027-68B2-4010-4AB2-068A}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons">
+			<UniqueIdentifier>{71834F65-F3A9-211E-73B8-DC85}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui">
+			<UniqueIdentifier>{4F2A59AF-5F4E-704B-D067-EC13}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxGui\src">
+			<UniqueIdentifier>{645E9533-4DCD-6179-1CDF-CB65}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxXmlSettings">
+			<UniqueIdentifier>{877F005D-13E6-0592-1D97-F2E3}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxXmlSettings\src">
+			<UniqueIdentifier>{CCB2AC63-49D2-977C-CFE8-AEAD}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="addons\ofxXmlSettings\libs">
+			<UniqueIdentifier>{687714A8-1662-FA1C-261F-50F0}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="src\ofApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\addons\ofAddon.h">
+			<Filter>src\addons</Filter>
+		</ClInclude>
+		<ClInclude Include="src\projects\baseProject.h">
+			<Filter>src\projects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\projects\CBLinuxProject.h">
+			<Filter>src\projects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\projects\CBWinProject.h">
+			<Filter>src\projects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\projects\visualStudioProject.h">
+			<Filter>src\projects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\projects\xcodeProject.h">
+			<Filter>src\projects</Filter>
+		</ClInclude>
+		<ClInclude Include="src\pugixmlLib\contrib\foreach.hpp">
+			<Filter>src\pugixmlLib\contrib</Filter>
+		</ClInclude>
+		<ClInclude Include="src\pugixmlLib\src\pugiconfig.hpp">
+			<Filter>src\pugixmlLib\src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\pugixmlLib\src\pugixml.hpp">
+			<Filter>src\pugixmlLib\src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\testApp.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\textButton.h">
+			<Filter>src</Filter>
+		</ClInclude>
+		<ClInclude Include="src\utils\Utils.h">
+			<Filter>src\utils</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxBaseGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxButton.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGui.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxGuiGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxLabel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxPanel.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h">
+			<Filter>addons\ofxGui\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxXmlSettings\src\ofxXmlSettings.h">
+			<Filter>addons\ofxXmlSettings\src</Filter>
+		</ClInclude>
+		<ClInclude Include="..\..\..\addons\ofxXmlSettings\libs\tinyxml.h">
+			<Filter>addons\ofxXmlSettings\libs</Filter>
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ResourceCompile Include="icon.rc" />
+	</ItemGroup>
 </Project>
