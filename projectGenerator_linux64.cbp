@@ -96,6 +96,12 @@
 		<Unit filename="src/projects/CBWinProject.h">
 			<Option virtualFolder="src/projects/" />
 		</Unit>
+		<Unit filename="src/projects/CodeliteLinuxProject.cpp">
+			<Option virtualFolder="src/projects/" />
+		</Unit>
+		<Unit filename="src/projects/CodeliteLinuxProject.h">
+			<Option virtualFolder="src/projects/" />
+		</Unit>
 		<Unit filename="src/projects/baseProject.cpp">
 			<Option virtualFolder="src/projects/" />
 		</Unit>

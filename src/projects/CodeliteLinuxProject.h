@@ -14,7 +14,7 @@ class CodeliteLinuxProject : virtual public baseProject
         bool createProjectFile();
         bool loadProjectFile();
         bool saveProjectFile();
-        void addSrc(string srcFile, string folder);
+        void addSrc(string srcFile, string folder, SrcType type=DEFAULT);
         void addInclude(string path);
         void addLibrary(string libraryName, LibType libType = RELEASE_LIB);
     protected:

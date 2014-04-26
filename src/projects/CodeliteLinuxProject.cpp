@@ -112,7 +112,7 @@ bool CodeliteLinuxProject::saveProjectFile(){
     return doc.save_file((projectDir + codeliteDirName + projectName + ".project").c_str());
 }
 
-void CodeliteLinuxProject::addSrc(string srcFile, string folder){
+void CodeliteLinuxProject::addSrc(string srcFile, string folder, SrcType type){
     std::vector<string> path = ofSplitString(folder, "/");
     pugi::xml_node node = doc.child("CodeLite_Project");
     for(unsigned int i=0;i<path.size();i++){

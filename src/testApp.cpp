@@ -128,14 +128,14 @@ void testApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetVerticalSync(true);
 
-    
+
     statusEnergy = 0;
-    
+
     mode = 0;
     bInited = false;
     project = NULL;
     sketchName = "mySketch";
-	
+
 
     //-------------------------------------
     // get settings
@@ -181,7 +181,7 @@ void testApp::setup(){
     font.loadFont("fonts/Inconsolata.otf", 14, true,false,false,0.3,90);
     titleFont.loadFont("fonts/Inconsolata.otf", 28, true,false,false,0.3,90);
     secondFont.loadFont("fonts/Inconsolata.otf", 11, true,false,false,0.3,90);
-    
+
     //  Sketch button
     //
     button.font = &font;
@@ -189,7 +189,7 @@ void testApp::setup(){
     button.prefix = "Name: ";
 	button.topLeftAnchor.set(76, 160+40); //set top button position - others are set relative to this.
     button.setText(sketchName);
-    
+
     button.secondaryText = "<< CLICK TO CHANGE THE NAME";
     buttons.push_back(button);
 
@@ -242,13 +242,13 @@ void testApp::setup(){
     generateButton.bSelectable = true;
     generateButton.setText("");
     generateButton.bDrawLong = false;
-    
+
     addonButton = button;
     addonButton.topLeftAnchor.set(906, 535);
     addonButton.prefix = "<< BACK";
     addonButton.setText("");
     addonButton.bDrawLong = false;
-    
+
 
     for (int i = 0; i < buttons.size(); i++){
         buttons[i].calculateRect();
@@ -298,7 +298,7 @@ void testApp::setup(){
 //for ios, we need to fake that the target is ios (since we're compiling w/ osx OF)
 
 //#define MAKE_IOS
-    
+
 #ifdef MAKE_IOS
 	panelPlatforms.add(osxToggle.setup("osx (xcode)",false));
 	panelPlatforms.add(iosToggle.setup("ios (xcode)",true));
@@ -306,8 +306,8 @@ void testApp::setup(){
     panelPlatforms.add(osxToggle.setup("osx (xcode)",ofGetTargetPlatform()==OF_TARGET_OSX));
 	panelPlatforms.add(iosToggle.setup("ios (xcode)",ofGetTargetPlatform()==OF_TARGET_IPHONE));
 #endif
-    
-    
+
+
     // update the platforms text in the platform button
     string platforms = "";
     for (int i = 0; i < panelPlatforms.getNumControls(); i++){
@@ -323,17 +323,17 @@ void testApp::setup(){
     panelPlatforms.setPosition(10,40);
     panelCoreAddons.setPosition(10,40);
     panelOtherAddons.setPosition(330,40);
-   
+
 
     logo.loadImage("images/ofw-logo.png");
 
     ofBackground(230,230,230);
-    
-    
+
+
     generateButton.topLeftAnchor.set(ofGetWidth() - buttons[0].rect.x - generateButton.rect.width + 10 ,
                                      ofGetHeight() - generateButton.rect.height - 40);// 535);
     generateButton.calculateRect();
-    
+
     addonButton.topLeftAnchor.set(ofGetWidth() - buttons[0].rect.x - addonButton.rect.width + 10 ,
                                   ofGetHeight() - addonButton.rect.height - 40);// 535);
     addonButton.calculateRect();
@@ -369,7 +369,7 @@ void testApp::update(){
     }
 
     generateButton.checkMousePressed(ofPoint(mouseX, mouseY));
-    
+
     for (int i = 0; i < buttons.size(); i++){
         if (i != 0){
 			buttons[i].topLeftAnchor.y = buttons[i-1].topLeftAnchor.y +buttons[i-1].rect.height + 20;
@@ -398,25 +398,25 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
-    
-    
+
+
     if (mode != MODE_ADDON ) {
-        
+
         ofSetColor(100);
         logo.draw(64, 61,logo.getWidth(),logo.getHeight());
-        
+
         //ofSetColor(74,255,203);
         titleFont.drawString("PROJECT", 64 + logo.getWidth() + 25, 85);
         titleFont.drawString("GENERATOR",  64 + logo.getWidth() + 25, 117);
     }
-    
+
 	if (mode == 0){
 		for (int i = 0; i < buttons.size(); i++){
 			buttons[i].draw();
 		}
-        
+
         generateButton.draw();
-        
+
     } else if (mode == 1){
         panelCoreAddons.draw();
         if (bHaveNonCoreAddons){
@@ -428,11 +428,11 @@ void testApp::draw(){
     //cout << panelAddons.getShape().height << endl;
 
 
-    
-    
+
+
     if (mode == 1 ){
         addonButton.draw();
-        
+
         ofRectangle rect = secondFont.getStringBoundingBox("select core and non-core addons to add", addonButton.topLeftAnchor.x-200, 60);
         ofSetColor(220,220,220);
         ofRect(rect.x-10, rect.y-10, rect.width+20, rect.height+20);
@@ -568,13 +568,13 @@ void testApp::mousePressed(int x, int y, int button){
         for (int i = 0; i < buttons.size(); i++){
             buttons[i].checkMousePressed(ofPoint(x, y));
         }
-        
+
 
         //-------------------------------------
         // 4 = genearate
         //-------------------------------------
 
-        
+
         if (generateButton.bMouseOver == true){
             generateProject();
         }
@@ -604,19 +604,19 @@ void testApp::mousePressed(int x, int y, int button){
                 dir.create();
             }
 
-          	
+
         #ifdef TARGET_WIN32
                     ofFileDialogResult res = ofSystemLoadDialog("please select sketch folder", true, windowsFromUnixPath(dir.path()));
-        #else 
+        #else
                     ofFileDialogResult res = ofSystemLoadDialog("please select sketch folder", true, dir.path());
         #endif
-            
+
 
             if (res.bSuccess){
                 string result = res.filePath;
                 convertWindowsToUnixPath(result);
                 buttons[1].setText( result );
-                
+
                 setStatus("path set to: " + result);
             }
 
@@ -716,11 +716,11 @@ void testApp::windowResized(int w, int h){
     generateButton.topLeftAnchor.set(ofGetWidth() - buttons[0].rect.x - generateButton.rect.width + 10 ,
                                      ofGetHeight() - generateButton.rect.height - 40);// 535);
     generateButton.calculateRect();
-    
+
     addonButton.topLeftAnchor.set(ofGetWidth() - buttons[0].rect.x - addonButton.rect.width + 10 ,
                                   ofGetHeight() - addonButton.rect.height - 40);// 535);
     addonButton.calculateRect();
-    
+
 }
 
 //--------------------------------------------------------------
@@ -728,35 +728,35 @@ void testApp::gotMessage(ofMessage msg){
 
 }
 void testApp::addAddon(string addon) {
-	
+
 	string addons = "";
-	
+
 	for (int i = 0; i < panelCoreAddons.getNumControls(); i++){
-		
+
 		ofxToggle *toggle = ((ofxToggle *)panelCoreAddons.getControl(i));
 		if(toggle->getName()==addon) {
 			(*toggle) = true;
 		}
-		
+
 		if (*toggle){
 			if (addons.length() > 0) addons+=", ";
 			addons += toggle->getName();
 
 		}
-		
+
 	}
 	for (int i = 0; i < panelOtherAddons.getNumControls(); i++){
 		ofxToggle *toggle = ((ofxToggle *)panelOtherAddons.getControl(i));
-		
+
 		if(toggle->getName()==addon) {
 			(*toggle) = true;
 		}
-		
+
 		if (*toggle){
 			if (addons.length() > 0) addons+=", ";
 			addons += toggle->getName();
 		}
-		
+
 	}
 	buttons[3].setText(addons);
 }
