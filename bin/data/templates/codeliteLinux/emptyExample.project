@@ -8,8 +8,8 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="../src/testApp.cpp"/>
-    <File Name="../src/testApp.h"/>
+    <File Name="../src/ofApp.cpp"/>
+    <File Name="../src/ofApp.h"/>
     <File Name="../src/main.cpp"/>
   </VirtualDirectory>
   <VirtualDirectory Name="config">
