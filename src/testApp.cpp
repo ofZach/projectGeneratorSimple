@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include "ofConstants.h"
 
+//for ios, we need to fake that the target is ios (since we're compiling w/ osx OF)
+//#define MAKE_IOS
+
+
 void convertWindowsToUnixPath(string & path){
     for (int i = 0; i < path.size(); i++){
         if (path[i] == '\\') path[i] = '/';
@@ -255,6 +259,16 @@ void testApp::setup(){
     panelOtherAddons.setup();
 
     ofDirectory addons(addonsPath);
+    
+    vector <string> ignoreAddons;
+    
+    #ifdef MAKE_IOS
+        ignoreAddons.push_back("ofxiOS");
+        ignoreAddons.push_back("ofxMultiTouch");
+        ignoreAddons.push_back("ofxAccelerometer");
+        ignoreAddons.push_back("ofxKinect");
+        ignoreAddons.push_back("ofxVectorGraphics");
+    #endif
 
     addons.listDir();
     for(int i=0;i<(int)addons.size();i++){
@@ -265,7 +279,7 @@ void testApp::setup(){
             if (isAddonCore(addon)){
                 ofxToggle * toggle = new ofxToggle();
                 panelCoreAddons.add(toggle->setup(addon,false,300));
-            } else {
+            } else if( find(ignoreAddons.begin(), ignoreAddons.end(), addon) == ignoreAddons.end() ){
                 bHaveNonCoreAddons = true;
                 ofxToggle * toggle = new ofxToggle();
                 panelOtherAddons.add(toggle->setup(addon,false,300));
@@ -283,10 +297,6 @@ void testApp::setup(){
 	panelPlatforms.add(winvsToggle.setup("windows (visual studio)", ofGetTargetPlatform()==OF_TARGET_WINVS));
 	panelPlatforms.add(linuxcbToggle.setup("linux (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX));
 	panelPlatforms.add(linux64cbToggle.setup("linux64 (codeblocks)",ofGetTargetPlatform()==OF_TARGET_LINUX64));
-
-//for ios, we need to fake that the target is ios (since we're compiling w/ osx OF)
-
-//#define MAKE_IOS
     
 #ifdef MAKE_IOS
 	panelPlatforms.add(osxToggle.setup("osx (xcode)",false));
