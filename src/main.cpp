@@ -1,7 +1,7 @@
 #include "ofMain.h"
 #include "ofApp.h"
 #include "ofAppGlutWindow.h"
-#include "ofAppNoWindow.h"
+//#include "ofAppNoWindow.h"
 
 
 //========================================================================

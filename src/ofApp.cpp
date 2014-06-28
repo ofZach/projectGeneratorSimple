@@ -16,11 +16,34 @@ string windowsFromUnixPath(string path){
 	return path;
 }
 
+
+
+
+//------------------------------------------------------
+bool ofApp::isAddonGood(string addon){
+    
+    if (unlistedAddons.size() == 0){
+        unlistedAddons.push_back("ofxiOS ");
+        unlistedAddons.push_back("ofxMultiTouch");
+        unlistedAddons.push_back("ofxAccelorometer");
+    }
+    
+
+    for (int i = 0; i < unlistedAddons.size(); i++){
+        
+        if (unlistedAddons[i] == addon){
+            return false;
+        }
+    }
+    return true;
+}
+
+
 //------------------------------------------------------
 bool ofApp::isAddonCore(string addon){
 
 
-    if (bInited == false){
+    if (coreAddons.size() == 0){
         coreAddons.push_back("ofx3DModelLoader");
         coreAddons.push_back("ofxAssimpModelLoader");
         coreAddons.push_back("ofxDirList");
@@ -35,7 +58,6 @@ bool ofApp::isAddonCore(string addon){
         coreAddons.push_back("ofxSvg");
         coreAddons.push_back("ofxGui");
         coreAddons.push_back("ofxKinect");
-        bInited = true;
     }
 
 
@@ -129,7 +151,6 @@ void ofApp::setup(){
     statusEnergy = 0;
     
     mode = 0;
-    bInited = false;
     project = NULL;
     sketchName = "mySketch";
 	
@@ -263,13 +284,15 @@ void ofApp::setup(){
 
     	if(addon.find("ofx")==0){
 
-            if (isAddonCore(addon)){
-                ofxToggle * toggle = new ofxToggle();
-                panelCoreAddons.add(toggle->setup(addon,false,300));
-            } else {
-                bHaveNonCoreAddons = true;
-                ofxToggle * toggle = new ofxToggle();
-                panelOtherAddons.add(toggle->setup(addon,false,300));
+            if (isAddonGood(addon)){
+                if (isAddonCore(addon)){
+                    ofxToggle * toggle = new ofxToggle();
+                    panelCoreAddons.add(toggle->setup(addon,false,300));
+                } else {
+                    bHaveNonCoreAddons = true;
+                    ofxToggle * toggle = new ofxToggle();
+                    panelOtherAddons.add(toggle->setup(addon,false,300));
+                }
             }
 
 
@@ -287,7 +310,7 @@ void ofApp::setup(){
 
 //for ios, we need to fake that the target is ios (since we're compiling w/ osx OF)
 
-//#define MAKE_IOS
+#define MAKE_IOS
     
 #ifdef MAKE_IOS
 	panelPlatforms.add(osxToggle.setup("osx (xcode)",false));

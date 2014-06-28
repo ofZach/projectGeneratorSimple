@@ -69,16 +69,17 @@ class ofApp : public ofBaseApp{
 		
 		float uiLeftX; 
     
+
     
         textButton  button;
         textButton  generateButton;
         textButton  addonButton;
         vector < textButton > buttons;
 
+        bool isAddonGood(string addon);
         bool isAddonCore(string addon);
-        bool bInited;
         vector < string  > coreAddons;
-    
+        vector < string  > unlistedAddons;
         
         float statusSetTime;
         float statusEnergy;
