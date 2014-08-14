@@ -127,15 +127,13 @@ void testApp::setup(){
     ofEnableAlphaBlending();
     ofSetLogLevel(OF_LOG_VERBOSE);
     ofSetVerticalSync(true);
-
-
+    ofSetFrameRate(60);
     statusEnergy = 0;
 
     mode = 0;
     bInited = false;
     project = NULL;
     sketchName = "mySketch";
-
 
     //-------------------------------------
     // get settings
@@ -181,7 +179,7 @@ void testApp::setup(){
     font.loadFont("fonts/Inconsolata.otf", 14, true,false,false,0.3,90);
     titleFont.loadFont("fonts/Inconsolata.otf", 28, true,false,false,0.3,90);
     secondFont.loadFont("fonts/Inconsolata.otf", 11, true,false,false,0.3,90);
-
+        
     //  Sketch button
     //
     button.font = &font;
@@ -255,6 +253,7 @@ void testApp::setup(){
     }
     addonButton.calculateRect();
     generateButton.calculateRect();
+    
 
     //-------------------------------------
     // addons panels:
@@ -283,7 +282,7 @@ void testApp::setup(){
 
     	}
     }
-
+        
     //-------------------------------------
     // platform panel (not used, really, but here just in case)
     //-------------------------------------
