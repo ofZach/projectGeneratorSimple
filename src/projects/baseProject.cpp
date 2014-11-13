@@ -48,11 +48,7 @@ bool baseProject::create(string path){
             fileNames[i].erase(fileNames[i].begin(), fileNames[i].begin() + projectDir.length());
 
             string first, last;
-#ifdef TARGET_WIN32
-            splitFromLast(fileNames[i], "\\", first, last);
-#else
             splitFromLast(fileNames[i], "/", first, last);
-#endif
             if (fileNames[i] != "src/ofApp.cpp" &&
                 fileNames[i] != "src/ofApp.h" &&
                 fileNames[i] != "src/main.cpp" &&
@@ -88,11 +84,7 @@ bool baseProject::create(string path){
         vector < string > includePaths;
         for (int i = 0; i < (int)fileNames.size(); i++){
             size_t found;
-    #ifdef TARGET_WIN32
-            found = fileNames[i].find_last_of("\\");
-    #else
             found = fileNames[i].find_last_of("/");
-    #endif
             paths.push_back(fileNames[i].substr(0,found));
         }
 

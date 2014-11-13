@@ -40,7 +40,8 @@ void splitFromFirst(string toSplit, string deliminator, string & first, string &
 
 void parseAddonsDotMake(string path, vector < string > & addons);
 
-void fixSlashOrder(string & toFix);
+void toForwardSlashOrder(string & toFix);
+void toDosSlashOrder(string & toFix);
 string unsplitString (vector < string > strings, string deliminator );
 
 string getOFRelPath(string from);
