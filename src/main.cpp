@@ -1,16 +1,23 @@
 #include "ofMain.h"
 #include "testApp.h"
-#include "ofAppGlutWindow.h"
+#include "ofAppGLFWWindow.h"
 #include "ofAppNoWindow.h"
 
 
 //========================================================================
 int main(  int argc, char *argv[]  ){
-    
-    
-    ofAppGlutWindow window;
-    ofSetupOpenGL(&window, 1024, 610, OF_WINDOW);
-    testApp * app = new testApp;
-    //app->buildAllExamples = false;
-    ofRunApp( app );    
+	
+	ofGLFWWindowSettings settings;
+	settings.width = 1024;
+	settings.height = 610;
+	settings.setPosition(ofVec2f(300,0));
+	settings.resizable = false;
+	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
+	mainWindow->setVerticalSync(true);
+	
+	shared_ptr<testApp> mainApp(new testApp);
+	
+	ofRunApp(mainWindow, mainApp);
+	ofRunMainLoop();
+
 }
