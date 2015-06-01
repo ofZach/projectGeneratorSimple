@@ -7,6 +7,8 @@
 #ifndef HEADER_PUGIXML_FOREACH_HPP
 #define HEADER_PUGIXML_FOREACH_HPP
 
+#include <boost/range/iterator.hpp>
+
 #include "pugixml.hpp"
 
 /*
@@ -17,9 +19,6 @@
 
 namespace boost
 {
-	template <typename> struct range_mutable_iterator;
-	template <typename> struct range_const_iterator;
-
 	template<> struct range_mutable_iterator<pugi::xml_node>
 	{
 		typedef pugi::xml_node::iterator type;
@@ -50,52 +49,14 @@ namespace boost
 
 namespace pugi
 {
-	struct xml_node_children_adapter
+	inline xml_object_range<xml_node_iterator> children(const pugi::xml_node& node)
 	{
-		typedef pugi::xml_node::iterator iterator;
-		typedef pugi::xml_node::iterator const_iterator;
-
-		xml_node node;
-
-		const_iterator begin() const
-		{
-			return node.begin();
-		}
-
-		const_iterator end() const
-		{
-			return node.end();
-		}
-	};
-
-	xml_node_children_adapter children(const pugi::xml_node& node)
-	{
-		xml_node_children_adapter result = {node};
-		return result;
+		return node.children();
 	}
 
-	struct xml_node_attribute_adapter
+	inline xml_object_range<xml_attribute_iterator> attributes(const pugi::xml_node& node)
 	{
-		typedef pugi::xml_node::attribute_iterator iterator;
-		typedef pugi::xml_node::attribute_iterator const_iterator;
-
-		xml_node node;
-
-		const_iterator begin() const
-		{
-			return node.attributes_begin();
-		}
-
-		const_iterator end() const
-		{
-			return node.attributes_end();
-		}
-	};
-
-	xml_node_attribute_adapter attributes(const pugi::xml_node& node)
-	{
-		xml_node_attribute_adapter result = {node};
-		return result;
+		return node.attributes();
 	}
 }
 
