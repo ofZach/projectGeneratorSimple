@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="projectGenerator" />
+		<Option title="projectGeneratorSimple" />
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
@@ -94,6 +94,12 @@
 			<Option virtualFolder="src/projects/" />
 		</Unit>
 		<Unit filename="src/projects/CBWinProject.h">
+			<Option virtualFolder="src/projects/" />
+		</Unit>
+		<Unit filename="src/projects/CodeliteLinuxProject.cpp">
+			<Option virtualFolder="src/projects/" />
+		</Unit>
+		<Unit filename="src/projects/CodeliteLinuxProject.h">
 			<Option virtualFolder="src/projects/" />
 		</Unit>
 		<Unit filename="src/projects/baseProject.cpp">

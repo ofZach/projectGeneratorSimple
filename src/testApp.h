@@ -5,6 +5,7 @@
 #include "ofMain.h"
 #include "CBLinuxProject.h"
 #include "CBWinProject.h"
+#include "CodeliteLinuxProject.h"
 #include "visualStudioProject.h"
 #include "xcodeProject.h"
 #include <Poco/Path.h>
@@ -45,7 +46,7 @@ class testApp : public ofBaseApp{
     
         ofxPanel panelPlatforms;
     
-        ofxToggle osxToggle, iosToggle, wincbToggle, winvsToggle, linuxcbToggle, linux64cbToggle;
+        ofxToggle osxToggle, iosToggle, wincbToggle, winvsToggle, linuxcbToggle, linux64cbToggle, linuxCodeliteToggle;
 
         ofTrueTypeFont font;
         ofTrueTypeFont titleFont;
@@ -67,7 +68,7 @@ class testApp : public ofBaseApp{
         string appToRoot;
         string defaultLoc;
 		
-		float uiLeftX; 
+	float uiLeftX; 
     
     
         textButton  button;
@@ -85,6 +86,7 @@ class testApp : public ofBaseApp{
         void setStatus(string newStatus);
         
         ofImage logo;
-		void addAddon(string addon);
-    
+	void addAddon(string addon);
+        
+
 };
